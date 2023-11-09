@@ -16,3 +16,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.gym-list {
+    font-family: Arial;
+    border-collapse: collapse;
+    width: 70%;
+    text-align: left;
+}
+.gym-list td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.gym-list th {
+    border: 1px solid #ddd;
+    padding: 8px;
+    font-weight: bold;
+}
