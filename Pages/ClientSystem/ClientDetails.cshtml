@@ -1,0 +1,14 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.ClientSystem.ClientDetailsModel
+@{
+    ViewData["Title"] = "Kliento informacija";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <p><strong>ID:</strong> @Model.Client.Id</p>
+    <p><strong>Vardas:</strong> @Model.Client.Name</p>
+    <p><strong>Pavardė:</strong> @Model.Client.Surname</p>
+    <!-- Pridėkite kitą kliento informaciją pagal poreikį -->
+</div>

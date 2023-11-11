@@ -1,0 +1,19 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.ClientSystem.RoomReviewModel
+@{
+    ViewData["Title"] = "Kambario atsiliepimai";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Kambario atsiliepimai</h1>
+</div>
+
+<div>
+    <h2>Atsiliepimai:</h2>
+    <ul>
+        @foreach (var review in Model.Reviews)
+        {
+            <li><strong>@review.UserName:</strong> @review.Comment</li>
+        }
+    </ul>
+</div>

@@ -1,0 +1,21 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.ClientSystem.EditClientModel
+@{
+    ViewData["Title"] = "Redaguoti kliento informaciją";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <div class="form-group">
+        <label for="name">Vardas</label>
+        <input type="text" class="form-control" id="name" name="name" value="@Model.Client.Name" required>
+    </div>
+    <div class="form-group">
+        <label for="surname">Pavardė</label>
+        <input type="text" class="form-control" id="surname" name="surname" value="@Model.Client.Surname" required>
+    </div>
+    <!-- Įtraukite kitus kliento redagavimo laukus pagal poreikį -->
+
+    <button type="submit" class="btn btn-primary">Išsaugoti</button>
+</form>

@@ -1,0 +1,33 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.ClientSystem.ClientsListModel
+@{
+    ViewData["Title"] = "Klientų sąrašas";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vardas</th>
+            <th>Pavardė</th>
+            <th>Veiksmai</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var client in Model.Clients)
+        {
+            <tr>
+                <td>@client.Id</td>
+                <td>@client.Name</td>
+                <td>@client.Surname</td>
+                <td>
+                    <a asp-page="./ClientDetails" asp-route-id="@client.Id">Peržiūrėti</a> |
+                    <a asp-page="./EditClient" asp-route-id="@client.Id">Redaguoti</a>
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>

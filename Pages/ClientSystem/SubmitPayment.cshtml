@@ -1,0 +1,28 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.ClientSystem.SubmitPaymentModel
+@{
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Mokėjimo patvirtinimas</h2>
+
+                    <!-- Patvirtinimo pranešimas -->
+                    <div class="alert alert-success" role="alert">
+                        Apmokėjimas sėkmingas! Dėkojame už jūsų rezervaciją.
+                    </div>
+
+                    <!-- Informacija apie rezervaciją -->
+                    <p><strong>Kambario numeris:</strong> @Model.RoomNumber</p>
+                    <p><strong>Data:</strong> @Model.ReservationDate.ToShortDateString()</p>
+                    <!-- Pridėkite kitą informaciją, kurią norite rodyti apie rezervaciją -->
+                    <!-- Grįžimo mygtukas -->
+                    <a href="/RoomSystem/OwnedReservation" class="btn btn-primary btn-block">Grįžti į jūsų rezervaciją</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
