@@ -10,6 +10,12 @@
 </div>
 @Html.ValidationSummary()
 <form method="post">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccessMessage"]
+        </div>
+    }
     <div class="form-group">
         <label for="inputEmail">Vardas</label>
         <input asp-for="Input.FirstName" type="text" class="form-control" id="inputFirstName" required>

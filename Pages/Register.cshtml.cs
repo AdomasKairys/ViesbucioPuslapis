@@ -40,12 +40,11 @@ namespace ViesbucioPuslapis.Pages
 
             if (Input.Password1 == Input.Password2)
             {
-                // Įvykdomas prisijungimas
-                return RedirectToPage("/Index"); // Pridėkite puslapio kelio pavadinimą, į kurį nukreipiama po sėkmingo prisijungimo
+                TempData["SuccessMessage"] = "Registracija sekminga!";
+                return RedirectToPage("/Index");
             }
             else
             {
-                // Klaida - neteisingi prisijungimo duomenys
                 ModelState.AddModelError(string.Empty, "Nesutampa slaptažodis.");
                 return Page();
             }
