@@ -1,0 +1,11 @@
+﻿@page
+@model ParkingReservationViewModel
+@{
+    ViewData["Title"] = "Sporto salė";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Jūs neturite stovėjimo vietos rezervacijos!</h1>
+    <a class="text-dark" asp-area="" asp-page="./ParkingReservation">Rezervuoti vietą</a>
+    <a class="text-dark" asp-area="" asp-page="./CancelParkingReservation">Atšaukti rezervaciją</a>
+</div>
