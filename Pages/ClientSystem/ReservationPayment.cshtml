@@ -1,0 +1,38 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.ClientSystem.ReservationPaymentModel
+@{
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Kambario rezervacijos apmokėjimas</h2>
+
+                    <!-- Mokėjimo forma -->
+                    <form method="post" asp-area="" asp-page="/ClientSystem/SubmitPayment">
+                        <!-- Pakeiskite veiksmo (action) kelią pagal savo poreikius -->
+                        <div class="form-group">
+                            <label for="cardNumber">Kortelės numeris</label>
+                            <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Įveskite kortelės numerį" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardHolderName">Kortelės turėtojas</label>
+                            <input type="text" class="form-control" id="cardHolderName" name="cardHolderName" placeholder="Vardas ir pavardė" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="expiryDate">Galiojimo data</label>
+                            <input type="text" class="form-control" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" class="form-control" id="cvv" name="cvv" placeholder="CVV" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Apmokėti</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.LoginModel
+@{
+    ViewData["Title"] = "Prisijungti";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Prisijungti</h1>
+</div>
+
+<form method="post">
+    <div class="form-group">
+        <label for="inputEmail">El. paštas</label>
+        <input asp-for="Input.Email" type="email" class="form-control" id="inputEmail" required>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Slaptažodis</label>
+        <input asp-for="Input.Password" type="password" class="form-control" id="inputPassword" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Prisijungti</button>
+</form>

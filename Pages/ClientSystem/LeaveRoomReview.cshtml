@@ -1,0 +1,20 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.ClientSystem.LeaveRoomReviewModel
+@{
+    ViewData["Title"] = "Palikite atsiliepimą apie savo kambarį";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Jūsų rezervacija</h1>
+</div>
+<div>
+    <h2>Palikite atsiliepimą apie kambarį:</h2>
+    <form method="post" asp-area="" asp-page="/ClientSystem/SubmitReview">
+        <!-- Pakeiskite veiksmo (action) kelią pagal savo poreikius -->
+        <div class="form-group">
+            <label for="review">Jūsų atsiliepimas:</label>
+            <textarea class="form-control" id="review" name="review" rows="4" placeholder="Rašykite čia..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Pateikti atsiliepimą</button>
+    </form>
+</div>

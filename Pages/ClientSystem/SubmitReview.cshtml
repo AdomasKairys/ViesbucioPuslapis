@@ -1,0 +1,21 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.ClientSystem.SubmitReviewModel
+@{
+}
+
+<div class="text-center">
+    @if (Model.IsReviewSubmitted)
+    {
+        <h1 class="display-4">Sėkmingai palikote atsiliepimą!</h1>
+        <div class="success-animation">
+            <!-- Čia įterpkite animacijos klasę iš savo stiliaus failo -->
+            <!-- Pavyzdinis animacijos turinys -->
+            <p>Įvertinimas pateiktas!</p>
+        </div>
+    }
+    else
+    {
+        <h1 class="display-4">Palikite atsiliepimą</h1>
+        <!-- Čia įterpkite jūsų atsiliepimo pateikimo formos HTML -->
+    }
+</div>
