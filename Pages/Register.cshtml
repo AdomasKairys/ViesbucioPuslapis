@@ -1,0 +1,38 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.RegisterModel
+@{
+    ViewData["Title"] = "Registruotis";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">Registruotis</h1>
+</div>
+@Html.ValidationSummary()
+<form method="post">
+    <div class="form-group">
+        <label for="inputEmail">Vardas</label>
+        <input asp-for="Input.FirstName" type="text" class="form-control" id="inputFirstName" required>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail">Pavardė</label>
+        <input asp-for="Input.LastName" type="text" class="form-control" id="inputLastName" required>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail">Tel. nr.</label>
+        <input asp-for="Input.PhoneNumber" type="tel" class="form-control" id="inputPhone" required>
+    </div>
+    <div class="form-group">
+        <label for="inputEmail">El. paštas</label>
+        <input asp-for="Input.Email" type="email" class="form-control" id="inputEmail" required>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Slaptažodis</label>
+        <input asp-for="Input.Password1" type="password" class="form-control" id="inputPassword1" required>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword">Pakartoti slaptažodį</label>
+        <input asp-for="Input.Password2" type="password" class="form-control" id="inputPassword2" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Registruotis</button>
+</form>
