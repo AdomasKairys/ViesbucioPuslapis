@@ -39,6 +39,7 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-page="/RoomSystem/RoomReport">Kambarių ataskaita</a>
                             </li>
+                                                    
                         </ul>
                     </div>
                 }
@@ -46,6 +47,11 @@
                 {
                     <div class="d-flex">
                         <a class="nav-link text-dark" asp-area="" asp-page="/Login">Prisijungti</a>
+                    </div>
+                    <div class="nav-item">
+                        <form asp-page="/Logout" method="post" class="nav-link">
+                            <button type="submit" class="btn btn-link text-dark">Atsijungti</button>
+                        </form>
                     </div>
                 }
             </div>
