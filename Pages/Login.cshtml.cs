@@ -22,21 +22,33 @@ namespace ViesbucioPuslapis.Pages
 
         public IActionResult OnPost()
         {
-            // Hardcode'inti prisijungimo duomenys
-            string hardcodedEmail = "stud@example.com";
-            string hardcodedPassword = "stud";
-
-            if (Input.Email == hardcodedEmail && Input.Password == hardcodedPassword)
+            if (ModelState.IsValid)
             {
-                // Įvykdomas prisijungimas
-                return RedirectToPage("/Index"); // Pridėkite puslapio kelio pavadinimą, į kurį nukreipiama po sėkmingo prisijungimo
+                // Hardcode'inti prisijungimo duomenys
+                string hardcodedEmail = "stud@example.com";
+                string hardcodedPassword = "stud";
+
+                if (Input.Email == hardcodedEmail && Input.Password == hardcodedPassword)
+                {
+                    // Įvykdomas prisijungimas
+                    TempData["SuccessMessage"] = "Sėkmingai prisijungta!";
+                    return RedirectToPage("/Index");
+                }
+                else
+                {
+                    // Klaida - neteisingi prisijungimo duomenys
+                    ModelState.AddModelError(string.Empty, "Neteisingas prisijungimo bandymas.");
+                    return Page();
+                }
             }
             else
             {
-                // Klaida - neteisingi prisijungimo duomenys
-                ModelState.AddModelError(string.Empty, "Neteisingas prisijungimo bandymas.");
+                // Klaida - ne visi reikiami duomenys pateikti
+                ModelState.AddModelError(string.Empty, "Užpildykite visus laukus.");
                 return Page();
             }
         }
+
     }
 }
+
