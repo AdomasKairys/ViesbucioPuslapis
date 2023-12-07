@@ -8,3 +8,32 @@
     <h1 class="display-4">SPORTO SALĖS PRADINIS PUSLAPIS</h1>
     <a class="text-dark" asp-area="" asp-page="./GymTimeList">Pirmadienio sporto salės laikų sąrašas</a>
 </div>
+@if(Model.Trainers != null && Model.Trainers.Count > 0)
+{
+    <table>
+        <thead>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>FirstName</th>
+            <th>FirstName</th>
+
+        </thead>
+        <tbody>
+            @foreach(var trainer in Model.Trainers)
+            {
+                <tr>
+                    <td>@trainer.id_Treneris</td>
+                    <td>@trainer.trenerio_pavarde</td>
+                    <td>@trainer.trenerio_pavarde</td>
+                    <td>ID</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else{
+    <br />
+    <p>No data</p>
+}

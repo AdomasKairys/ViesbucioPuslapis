@@ -1,7 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using ViesbucioPuslapis.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+
+builder.Services.AddDbContext<HotelDbContext>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("Default");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+});
 
 var app = builder.Build();
 
