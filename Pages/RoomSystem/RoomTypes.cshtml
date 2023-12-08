@@ -4,9 +4,19 @@
     ViewData["Title"] = "Kambarių tipai";
 }
 
-<div class="text-center">
+<div class="text-center" id="roomtype">
     <h1 class="display-4">Kambarių tipai</h1>
-    <a class="text-dark" asp-area="" asp-page="/RoomSystem/EconomicRoomType">Ekonominė klasė</a><br>
-    <a class="text-dark" asp-area="" asp-page="/RoomSystem/BusinessRoomType">Verslo klasė</a><br>
-    <a class="text-dark" asp-area="" asp-page="/RoomSystem/PresidentialSuiteType">Prezidentinis numeris</a>
+    
+    @if (Model.roomTypes != null && Model.roomTypes.Count > 0)
+    {
+        @foreach (var type in Model.roomTypes)
+        {
+            <a class="text-dark" style="font-size: 20px" asp-area="" asp-page="/RoomSystem/RoomType" asp-route-roomid="@type.id_Kambario_tipas">@type.name</a>
+            <br>
+        }
+    }
+    else
+    {
+        <p>No data</p>
+    }
 </div>

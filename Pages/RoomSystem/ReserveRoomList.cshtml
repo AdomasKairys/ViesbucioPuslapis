@@ -1,0 +1,14 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.RoomSystem.ReserveRoomListModel
+@{
+    ViewData["Title"] = "Kambarių sąrašas";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Pasirinkti @Model.roomType tipo kambarį</h1>
+
+    <a class="text-dark" asp-area="" asp-page="/RoomSystem/ReserveRoom">Kambarys 1</a><br>
+    <a class="text-dark" asp-area="" asp-page="/RoomSystem/ReserveRoom">Kambarys 2</a><br>
+
+    <a class="text-dark" asp-area="" asp-page="/RoomSystem/RoomType" asp-route-roomid="@Model.roomId">Grįžti</a>
+</div>
