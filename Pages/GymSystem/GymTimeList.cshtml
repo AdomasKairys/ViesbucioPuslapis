@@ -6,51 +6,41 @@
 <h1>@ViewData["Title"]</h1>
 <p>Jusu rezervacijos: </p>
 <table class="table">
-    <tr>
-        <th>Laikas nuo iki</th>
-        <th>Treneris</th>
-    </tr>
-    <tr>
-        <td>B</td>
-        <td>B</td>
-        <td><a class="text-dark" asp-area="" asp-page="./GymEditRezervationView">Redaguoti</a><a href="#" onclick="return confirm('Ar tikrai norite atšaukti rezervaciją?');">Atšaukti</a></td>
-    </tr>
-    <tr>
-        <td>C</td>
-        <td>C</td>
-        <td><a class="text-dark" asp-area="" asp-page="./GymEditRezervationView">Redaguoti</a><a href="#" onclick="return confirm('Ar tikrai norite atšaukti rezervaciją?');">Atšaukti</a></td>
-    </tr>
-    <tr>
-        <td>D</td>
-        <td>D</td>
-        <td><a class="text-dark" asp-area="" asp-page="./GymEditRezervationView">Redaguoti</a><a href="#" onclick="return confirm('Ar tikrai norite atšaukti rezervaciją?');">Atšaukti</a></td>
-    </tr>
+    <thead>
+        <tr>
+            <th>Laikas nuo iki</th>
+            <th>Treneris</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var sess in Model.TrainingSess)
+        {
+        <tr>
+            <td>@sess.treniruotes_pradzia</td>
+            <td>@sess.fk_Trenerisid_Treneris</td>
+            <td><a class="text-dark" href='@string.Format("./GymEditRezervationView?TrainingSess={0}",sess.treniruotes_nr)'>Redaguoti</a><a href="#" onclick="return confirm('Ar tikrai norite atšaukti rezervaciją?');">Atšaukti</a></td>
+        </tr>
+        }
+    </tbody>
 </table>
+
 <br />
 <p>Galimos rezervacijos: </p>
 <table class="table">
-    <tr>
-        <th>Laikas nuo iki</th>
-        <th>Laisvos vietos</th>
-        <th>Is viso vietos</th>
-    </tr>
-    <tr>
-        <td>B</td>
-        <td>B</td>
-        <td>B</td>
-        <td><a class="text-dark" asp-area="" asp-page="./GymRezervationView">Rezervuoti</a></td>
-    </tr>
-    <tr>
-        <td>C</td>
-        <td>C</td>
-        <td>C</td>
-        <td><a class="text-dark" asp-area="" asp-page="./GymRezervationView">Rezervuoti</a></td>
-
-    </tr>
-    <tr>
-        <td>D</td>
-        <td>D</td>
-        <td>D</td>
-        <td><a class="text-dark" asp-area="" asp-page="./GymRezervationView">Rezervuoti</a></td>
-    </tr>
+    <thead>
+        <tr>
+            <th>Laikas nuo iki</th>
+            <th>Treneris</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var sess in Model.TrainingSess)
+        {
+            <tr>
+                <td>@sess.treniruotes_pradzia</td>
+                <td>@sess.fk_Trenerisid_Treneris</td>
+                <td><a class="text-dark" href='@string.Format("./GymRezervationView?TrainingSess={0}",sess.treniruotes_nr)'>Rezervuoti</a></td>
+            </tr>
+        }
+    </tbody>
 </table>

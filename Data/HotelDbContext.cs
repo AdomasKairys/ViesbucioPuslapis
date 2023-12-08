@@ -11,6 +11,7 @@ namespace ViesbucioPuslapis.Data
 
         public DbSet<Trainer> treneris { get; set; }
         public DbSet<RoomTypes> kambario_tipas { get; set; }
-
+        public DbSet<TrainingSession> treniruote { get; set; }
+        public DbSet<GymRezervation> sporto_sales_rezervacija { get; set; }
     }
 }

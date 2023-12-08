@@ -10,14 +10,15 @@
 </div>
 @if(Model.Trainers != null && Model.Trainers.Count > 0)
 {
-    <table>
+    <table class="table">
         <thead>
-            <th>ID</th>
-            <th>FirstName</th>
-            <th>LastName</th>
-            <th>FirstName</th>
-            <th>FirstName</th>
-
+            <tr>
+                <th>ID</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>FirstName</th>
+                <th>FirstName</th>
+            </tr>
         </thead>
         <tbody>
             @foreach(var trainer in Model.Trainers)
