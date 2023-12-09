@@ -9,45 +9,74 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
     {
         private readonly ILogger<ErrorModel> _logger;
         private readonly HotelDbContext _db;
-        public List<Client> Clients { get; set; }
-        public List<User> Users { get; set; }
+
+        [BindProperty]
+        public Client Client { get; set; } // Pridėkite šią eilutę
+
+        [BindProperty]
+        public User User { get; set; } // Pridėkite šią eilutę
 
         public EditClientModel(ILogger<ErrorModel> logger, HotelDbContext db)
         {
             _logger = logger;
             _db = db;
         }
-        public void OnGet()
+        public void OnGet(int id)
         {
-            Clients = _db.klientas.ToList();
-            Users = _db.naudotojas.ToList();
-            //string con = "server=localhost;user=adokai;Database=viesbucio_sistema;password=146025123";
-            //MySqlConnection mySqlConnection = new MySqlConnection(con);
-            //mySqlConnection.Open();
+            Client = _db.klientas.FirstOrDefault(c => c.id_Naudotojas == id);
+            User = _db.naudotojas.FirstOrDefault(c => c.id_Naudotojas == id);
+
+            Console.WriteLine("Client: " + Client?.ToString());
+            Console.WriteLine("User: " + User?.ToString());
         }
-        //public Client Client { get; set; }
 
-        //public void OnGet(int id)
-        //{
-        //    // Čia galite įdėti kodą gauti kliento duomenis pagal ID iš duomenų bazės
-        //    // Šiame pavyzdyje grąžinama kietoji duomenų struktūra
-        //    Client = GetClientById(id);
-        //}
+        public IActionResult OnPost()
+        {
+            if (!ModelState.IsValid)
+            {
+                // Log or print ModelState errors
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        Console.WriteLine(error.ErrorMessage);
+                    }
+                }
+                return Page();
+            }
 
-        //public IActionResult OnPost()
-        //{
-        //    // Čia galite įdėti kodą, kuris atnaujina kliento duomenis duomenų bazėje
-        //    // ir po to nukreipia vartotoją į klientų sąrašo puslapį
-        //    // Po sėkmingo redagavimo, galite nukreipti vartotoją į kitą puslapį arba grįžti atgal į klientų sąrašą
-        //    return RedirectToPage("./ClientsList");
-        //}
 
-        //private Client GetClientById(int id)
-        //{
-        //    // Čia galite įdėti kodą gauti kliento duomenis pagal ID iš duomenų bazės
-        //    // Šiame pavyzdyje grąžinama kietoji duomenų struktūra
-        //    return new Client { Id = id, Name = "Jonas", Surname = "Jonaitis" };
-        //}
+            // Atnaujinkite duomenis duomenų bazėje
+            var existingUser = _db.naudotojas.FirstOrDefault(u => u.id_Naudotojas == User.id_Naudotojas);
+            var existingClient = _db.klientas.FirstOrDefault(c => c.id_Naudotojas == Client.id_Naudotojas);
+
+            if (existingUser != null && existingClient != null)
+            {
+                // Atnaujinkite duomenis iš formos
+                existingUser.naudotojo_vardas = User.naudotojo_vardas;
+                existingUser.naudotojo_pavarde = User.naudotojo_pavarde;
+                existingUser.elektroninis_paštas = User.elektroninis_paštas;
+                existingUser.slaptažodis = User.slaptažodis;
+
+                existingClient.kliento_telefono_numeris = Client.kliento_telefono_numeris;
+                existingClient.kliento_gimimo_data = Client.kliento_gimimo_data;
+
+
+                try
+                {
+                    _db.SaveChanges();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Error saving changes: " + ex.Message);
+                    // Log the exception or handle it appropriately
+                }
+
+            }
+
+            return RedirectToPage("./ClientList"); // Nukreipkite į klientų sąrašo puslapį po sėkmingo išsaugojimo
+        }
+
     }
 
 }

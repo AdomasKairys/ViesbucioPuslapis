@@ -13,31 +13,28 @@
             <th>Vardas</th>
             <th>Pavardė</th>
             <th>El. pastas</th>
-            <th>Slaptazodis</th>
+            <th>Slaptažodis</th>
             <th>Kliento telefono numeris</th>
             <th>Kliento gimimo data</th>
+            <th>Kliento lytis</th>
         </tr>
     </thead>
     <tbody>
-     @foreach (var client in Model.Clients)
+        @if (Model.Client != null && Model.User != null)
         {
-            @foreach (var user in Model.Users)
-            {
-            @if (client.id_Naudotojas == user.id_Naudotojas)
-            {
-                <tr>
-                    <td>@client.id_Naudotojas</td>
-                        <td>@user.naudotojo_vardas</td>
-                        <td>@user.naudotojo_pavarde</td>
-                        <td>@user.elektroninis_paštas</td>
-                        <td>@user.slaptažodis</td>
-                    <td>@client.kliento_telefono_numeris</td>
-                    <td>@client.kliento_gimimo_data</td>
-                        <td>
-                    </td>
-                </tr>
-                }
-            }
+            <tr>
+                <td>@Model.Client.id_Naudotojas</td>
+                <td>@Model.User.naudotojo_vardas</td>
+                <td>@Model.User.naudotojo_pavarde</td>
+                <td>@Model.User.elektroninis_paštas</td>
+                <td>@Model.User.slaptažodis</td>
+                <td>@Model.Client.kliento_telefono_numeris</td>
+                <td>@Model.Client.kliento_gimimo_data</td>
+                <td>@Model.Client.kliento_lytis</td>
+                <td>
+                    <!-- Galite pridėti papildomų veiksmų nuorodų čia -->
+                </td>
+            </tr>
         }
     </tbody>
 </table>

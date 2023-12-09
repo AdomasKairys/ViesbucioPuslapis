@@ -13,6 +13,10 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
         public List<Client> Clients { get; set; } = new List<Client>();
         public List<User> Users { get; set; } = new List<User>();
 
+        public Client Client { get; set; } // Pridėkite šią eilutę
+        public User User { get; set; } // Pridėkite šią eilutę
+
+
         public ClientDetailsModel(ILogger<ErrorModel> logger, HotelDbContext db)
         {
             _logger = logger;
@@ -20,13 +24,8 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
         }
         public void OnGet(int id)
         {
-            //Clients = Clients.Where(client => client.id_Naudotojas == id).ToList();
-            //Users = Users.Where(user => user.id_Naudotojas == id).ToList();
-            Clients = _db.klientas.ToList();
-            Users = _db.naudotojas.ToList();
-            //string con = "server=localhost;user=adokai;Database=viesbucio_sistema;password=146025123";
-            //MySqlConnection mySqlConnection = new MySqlConnection(con);
-            //mySqlConnection.Open();
+            Client = _db.klientas.FirstOrDefault(c => c.id_Naudotojas == id);
+            User = _db.naudotojas.FirstOrDefault(c => c.id_Naudotojas == id);
         }
         //public Client Client { get; set; }
 
