@@ -6,35 +6,25 @@
 
 <div class="text-center">
     <h1 class="display-4">SPORTO SALĖS PRADINIS PUSLAPIS</h1>
-    <a class="text-dark" asp-area="" asp-page="./GymTimeList">Pirmadienio sporto salės laikų sąrašas</a>
-</div>
-@if(Model.Trainers != null && Model.Trainers.Count > 0)
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>FirstName</th>
-                <th>FirstName</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var trainer in Model.Trainers)
-            {
-                <tr>
-                    <td>@trainer.id_Treneris</td>
-                    <td>@trainer.trenerio_pavarde</td>
-                    <td>@trainer.trenerio_pavarde</td>
-                    <td>ID</td>
-
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-else{
     <br />
-    <p>No data</p>
-}
+    <div class="d-flex flex-row justify-content-around">
+        @for(int i = 1; i <= 7; i++)
+        {
+            var culture = new System.Globalization.CultureInfo("lt-LT");
+            var dayName = culture.DateTimeFormat.DayNames[i != 7 ? i : 0];
+            var dayToday = (int)DateTime.Now.DayOfWeek;
+            <div class="p-2 card ">
+                <div class="card-body">
+                    <h5 class="card-title text-capitalize">@dayName</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item small text-left">Laisvų vietų skaičius</li>
+                    <li class="list-group-item small text-left">Treniruočių skaičius</li>
+                </ul>
+                <div class="card-body">
+                    <a class="text-dark btn btn-info @string.Format("{0}", dayToday > i ? "disabled":"")" role="button" aria-disabled="@string.Format("{0}", dayToday > i ? "true":"false")" asp-area="" asp-page="./GymTimeList">Pažiūrėti</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

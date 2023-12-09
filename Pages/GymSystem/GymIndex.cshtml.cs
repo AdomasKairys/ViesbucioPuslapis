@@ -10,7 +10,8 @@ namespace ViesbucioPuslapis.Pages
     {
         private readonly ILogger<ErrorModel> _logger;
         private readonly HotelDbContext _db;
-        public List<Trainer> Trainers { get; set; }
+        public List<TrainingSession> TrainingSess { get; set; }
+        public List<GymReservation> GymReservation { get; set; }
 
         public GymIndexModel(ILogger<ErrorModel> logger, HotelDbContext db)
         {
@@ -19,7 +20,12 @@ namespace ViesbucioPuslapis.Pages
         }
         public void OnGet()
         {
-            Trainers = _db.treneris.ToList();
+            TrainingSess = _db.treniruote.ToList();
+            GymReservation = _db.sporto_sales_rezervacija.ToList();
+
+
+
+
             //string con = "server=localhost;user=adokai;Database=viesbucio_sistema;password=146025123";
             //MySqlConnection mySqlConnection = new MySqlConnection(con);
             //mySqlConnection.Open();
