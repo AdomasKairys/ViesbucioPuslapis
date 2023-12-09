@@ -5,6 +5,7 @@ namespace ViesbucioPuslapis.Models
 {
     public class GymRezervation
     {
+        [Key]
         public int id_Sporto_sales_rezervacija { get; set; }
         public DateTime laiko_pradzia { get; set; }
         public  DateTime laiko_pabaiga { get; set; }
