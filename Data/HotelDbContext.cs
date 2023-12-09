@@ -13,5 +13,8 @@ namespace ViesbucioPuslapis.Data
         public DbSet<RoomTypes> kambario_tipas { get; set; }
         public DbSet<TrainingSession> treniruote { get; set; }
         public DbSet<GymRezervation> sporto_sales_rezervacija { get; set; }
+
+        public DbSet<Client> klientas { get; set; }
+        public DbSet<User> naudotojas { get; set; }
     }
 }

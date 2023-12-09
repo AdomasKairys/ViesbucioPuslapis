@@ -12,21 +12,31 @@
             <th>ID</th>
             <th>Vardas</th>
             <th>Pavardė</th>
+            <th>El. pastas</th>
+            <th>Slaptazodis</th>
             <th>Veiksmai</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var client in Model.Clients)
         {
-            <tr>
-                <td>@client.Id</td>
-                <td>@client.Name</td>
-                <td>@client.Surname</td>
-                <td>
-                    <a asp-page="./ClientDetails" asp-route-id="@client.Id">Peržiūrėti</a> |
-                    <a asp-page="./EditClient" asp-route-id="@client.Id">Redaguoti</a>
-                </td>
-            </tr>
+            @foreach (var user in Model.Users)
+            {
+                @if (client.id_Naudotojas == user.id_Naudotojas)
+                {
+                    <tr>
+                    <td>@user.id_Naudotojas</td>
+                    <td>@user.naudotojo_vardas</td>
+                    <td>@user.naudotojo_pavarde</td>
+                        <td>@user.elektroninis_paštas</td>
+                        <td>@user.slaptažodis</td>
+                    <td>
+                            <a asp-page="./ClientDetails" asp-route-id="@client.id_Naudotojas">Peržiūrėti</a> |
+                        <a asp-page="./EditClient" asp-route-id="@client.id_Naudotojas">Redaguoti</a>
+                    </td>
+                </tr>
+                }
+             }
         }
 
     </tbody>
