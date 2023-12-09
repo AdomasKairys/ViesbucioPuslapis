@@ -13,23 +13,6 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.TrainingSess != null && Model.TrainingSess.Count > 0)
-        {
-            foreach (var sess in Model.TrainingSess)
-            {
-                <tr>
-                    <td>@sess.treniruotes_pradzia</td>
-                    <td>@sess.fk_Trenerisid_Treneris</td>
-                    <td><a class="text-dark" href='@string.Format("./GymEditRezervationView?TrainingSess={0}",sess.treniruotes_nr)'>Redaguoti</a><a href="#" onclick="return confirm('Ar tikrai norite atšaukti rezervaciją?');">Atšaukti</a></td>
-                </tr>
-            }
-        }
-        else
-        {
-            <tr>
-                <td></td>
-            </tr>
-        }
     </tbody>
 </table>
 
@@ -38,8 +21,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Laikas nuo iki</th>
-            <th>Treneris</th>
+            <th>Laikas nuo</th>
+            <th>Laikas iki</th>
+            <th>Viekų skaičius</th>
         </tr>
     </thead>
     <tbody>
@@ -48,9 +32,10 @@
             foreach (var sess in Model.TrainingSess)
             {
                 <tr>
-                    <td>@sess.treniruotes_pradzia</td>
-                    <td>@sess.fk_Trenerisid_Treneris</td>
-                    <td><a class="text-dark" href='@string.Format("./GymRezervationView?TrainingSess={0}",sess.treniruotes_nr)'>Rezervuoti</a></td>
+                    <td>@sess.Item1</td>
+                    <td>@sess.Item2</td>
+                    <td>@sess.Item3</td>
+                    <td><a class="text-dark" href='@string.Format("./GymReservationView?Start={0}&End={1}",sess.Item1, sess.Item2)'>Rezervuoti</a></td>
                 </tr>
             }
         }
