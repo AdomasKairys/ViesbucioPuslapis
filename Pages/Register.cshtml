@@ -37,11 +37,14 @@
     </div>
     <div class="form-group mb-3">
         <label for="inputBirthDate">Gimimo data</label>
-        <input asp-for="Input.BirthDate" type="date" class="form-control" id="inputBirthDate" required>
+        <input asp-for="Input.BirthDate" type="date" class="form-control" id="inputBirthDate" value="@DateTime.Now.Date.ToString("yyyy-MM-dd")">
+        <span class="text-danger" asp-validation-for="Input.BirthDate"></span>
+
     </div>
     <div class="form-group mb-3">
         <label for="inputGender">Lytis</label>
-        <input asp-for="Input.Gender" type="text" class="form-control" id="inputGender" required>
+        <input asp-for="Input.Gender" type="text" class="form-control" id="inputGender">
+        <span class="text-danger" asp-validation-for="Input.Gender"></span>
     </div>
     <div class="form-group mb-3">
         <label for="inputPassword">Slaptažodis</label>

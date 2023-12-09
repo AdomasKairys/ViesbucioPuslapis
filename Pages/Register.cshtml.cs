@@ -37,10 +37,11 @@ namespace ViesbucioPuslapis.Pages
             [Compare(nameof(Password), ErrorMessage = "Slaptažodis nesutampa")]
             public string Password2 { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Gimimo data yra privaloma")]
+            [DataType(DataType.Date)]
             public DateOnly BirthDate { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Prašome nurodyti savo lyti")]
             public string Gender { get; set; }
         }
 
