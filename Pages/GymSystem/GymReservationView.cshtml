@@ -1,0 +1,39 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.GymReservationViewModel
+@{
+    ViewData["Title"] = "Treniruočių rezervacija";
+}
+<a class="text-dark" asp-area="" asp-page="./GymTimeList">Grįžti atgal</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Trenerio vardas</th>
+            <th>Vietu kiekis</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TrainingSess != null && Model.TrainingSess.Count > 0)
+        {
+            foreach (var sess in Model.TrainingSess)
+            {
+                <tr>
+                    <td>@sess.fk_Trenerisid_Treneris</td>
+                    <td>@sess.vietu_kiekis</td>
+                    <td>
+                        <form id="rezerveTraining" method="post" role="form">
+                            <button type="submit" name="TsessID" value='@sess.treniruotes_nr'>
+                                Rezervuoti
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
