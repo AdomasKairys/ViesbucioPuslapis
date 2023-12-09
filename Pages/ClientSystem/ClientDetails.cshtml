@@ -6,9 +6,38 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<div>
-    <p><strong>ID:</strong> @Model.Client.Id</p>
-    <p><strong>Vardas:</strong> @Model.Client.Name</p>
-    <p><strong>Pavardė:</strong> @Model.Client.Surname</p>
-    <!-- Pridėkite kitą kliento informaciją pagal poreikį -->
-</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Vardas</th>
+            <th>Pavardė</th>
+            <th>El. pastas</th>
+            <th>Slaptazodis</th>
+            <th>Kliento telefono numeris</th>
+            <th>Kliento gimimo data</th>
+        </tr>
+    </thead>
+    <tbody>
+     @foreach (var client in Model.Clients)
+        {
+            @foreach (var user in Model.Users)
+            {
+            @if (client.id_Naudotojas == user.id_Naudotojas)
+            {
+                <tr>
+                    <td>@client.id_Naudotojas</td>
+                        <td>@user.naudotojo_vardas</td>
+                        <td>@user.naudotojo_pavarde</td>
+                        <td>@user.elektroninis_paštas</td>
+                        <td>@user.slaptažodis</td>
+                    <td>@client.kliento_telefono_numeris</td>
+                    <td>@client.kliento_gimimo_data</td>
+                        <td>
+                    </td>
+                </tr>
+                }
+            }
+        }
+    </tbody>
+</table>
