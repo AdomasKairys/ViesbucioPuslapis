@@ -5,10 +5,59 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Pasirinkti @Model.roomType tipo kambarį</h1>
+    <h1 class="display-4">Pasirinkti "@Model.roomType" tipo kambarį</h1>
+    <p>Renkantis rezervacijos laikotarpį, viena naktis apima dvi dienas.</p>
+    <form method="POST">
+        <div class="row align-content-start">
+            <div class="col-sm-4">
+                <label for="start">Rezervacijos pradžia:</label>
+                <input id="start" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+            </div>
 
-    <a class="text-dark" asp-area="" asp-page="/RoomSystem/ReserveRoom">Kambarys 1</a><br>
-    <a class="text-dark" asp-area="" asp-page="/RoomSystem/ReserveRoom">Kambarys 2</a><br>
+             <div class="col-sm-4">
+                <label for="end">Revervacijos pabaiga:</label>
+                <input type="date" id="end" min="@DateTime.Now.ToString("yyyy-MM-dd")">
+             </div>
+
+            <input type="hidden" id="roomid" name="roomid" value="@Model.roomId">
+
+            <div class="col-sm-4">
+                <input class="btn btn-success" type="submit" value="Rodyti laisvus kambarius">
+            </div>
+        </div>
+    </form>
+
+    @if (Model.displayRooms != null)
+    {
+        @if (Model.displayRooms != null && Model.displayRooms.Count > 0)
+        {
+            <div class="row align-content-center">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Kambario numeris</th>
+                            <th>Nakties kaina</th>
+                            <th>Vietų kiekis</th>
+                        </tr>          
+                    </thead>
+
+                    <tbody>
+                        @foreach (var room in Model.displayRooms)
+                        {
+                            <tr>
+                               <td>@room.kambario_numeris</td>
+                                <td>@room.nakties_kaina</td>
+                                <td>@room.vietu_kiekis</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Nėra šio tipo laisvų kambarių pasirinktu laikotarpiu.</p>
+    }
 
     <a class="text-dark" asp-area="" asp-page="/RoomSystem/RoomType" asp-route-roomid="@Model.roomId">Grįžti</a>
-</div>

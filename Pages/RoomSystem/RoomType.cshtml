@@ -6,7 +6,8 @@
 
 <div class="text-center">
     <h1 class="display-4">@Model.roomType</h1>
-    <p> Aprašas </p>
-    <a class="text-dark" asp-area="" asp-page="/RoomSystem/ReserveRoomList" asp-route-roomid="@Model.roomId">Rezervuoti šio tipo kambarį</a><br>
+    <br>
+    <a class="btn btn-primary" role="button" asp-page="/RoomSystem/ReserveRoomList" asp-route-roomid="@Model.roomId">Rezervuoti</a>
+    <br>
     <a class="text-dark" asp-area="" asp-page="/RoomSystem/RoomTypes">Grįžti</a>
 </div>

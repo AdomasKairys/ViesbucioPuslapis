@@ -8,9 +8,48 @@
     <h1 class="display-4">Jūsų rezervacija</h1>
 </div>
 
-<div class="text-center">
-<h1 class="display-4"></h1>
-    <a class="text-dark" asp-area="" asp-page="/RoomSystem/ReservationRemovalVerification">Atšaukti rezervaciją</a>
-    <a class="text-dark" asp-area="" asp-page="/ClientSystem/LeaveRoomReview">Palikti atsiliepimą apie kambarį</a>
-<br>
+
+
+@if (Model.reservations != null && Model.reservations.Count > 0)
+{
+    <div class="row align-content-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Kambario numeris</th>
+                    <th>Pradžia</th>
+                    <th>Pabaiga</th>
+                    <th>Kaina</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var res in Model.reservations)
+                {
+                    <tr>
+                        <td>@res.fk_Kambarys_kambario_numeris</td>
+                        <td>@res.pradžia</td>
+                        <td>@res.pabaiga</td>
+                        <td>@res.kaina</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a class="text-dark" asp-area="" asp-page="/RoomSystem/ReservationRemovalVerification">Atšaukti rezervaciją</a>
+        </div>
+    </div>
+}
+else
+{
+    <div class="text-center">
+        <p>Neturite kambario rezervacijos</p>
+    </div>  
+}
+
+<div class="text-center">s
+    <a class="text-dark" asp-area="" asp-page="/Index">Grįžti</a>
 </div>
+
+
+
