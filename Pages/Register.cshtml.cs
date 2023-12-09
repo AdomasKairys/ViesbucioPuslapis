@@ -14,26 +14,27 @@ namespace ViesbucioPuslapis.Pages
 
         public class InputModel
         {
-            [Required]
+            [Required(ErrorMessage = "Vardas yra privalomas")]
             public string FirstName { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Pavardė yra privaloma")]
             public string LastName { get; set; }
 
-            [Required]
-            [Phone]
+            [Required(ErrorMessage = "Tel. numeris yra privalomas")]
+            [Phone(ErrorMessage = "Blogas tel. numerio formatas")]
             public string PhoneNumber { get; set; }
 
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessage = "El. pašto adresas yra privalomas")]
+            [EmailAddress(ErrorMessage ="Blogas el. pašto formatas")]
             public string Email { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Slaptažodis yra privalomas")]
             [DataType(DataType.Password)]
-            public string Password1 { get; set; }
+            public string Password { get; set; }
 
-            [Required]
+            [Required(ErrorMessage = "Prašome pakartoti slaptažodi")]
             [DataType(DataType.Password)]
+            [Compare(nameof(Password), ErrorMessage = "Slaptažodis nesutampa")]
             public string Password2 { get; set; }
 
         }
@@ -51,23 +52,18 @@ namespace ViesbucioPuslapis.Pages
         public IActionResult OnPost()
         {
             var emailCheck = _db.naudotojas.Any(user => user.elektroninis_paštas == Input.Email);
-            bool error = false;
-            if (Input.Password1 != Input.Password2)
-            {
-                ModelState.AddModelError(string.Empty, "Nesutampa slaptažodis.");
-                error = true;
-            }
             if (emailCheck)
             {
-                ModelState.AddModelError(string.Empty, "Vartotojas su tokiu el. paštu jau egzistuoja.");
-                error = true;
+                ModelState.AddModelError($"{nameof(Input)}.{nameof(Input.Email)}", "Vartotojas su tokiu el. paštu jau egzistuoja.");
             }
-            if(error)
+            if (!ModelState.IsValid)
+            {
                 return Page();
+            }
 
 
             string salt = BCrypt.Net.BCrypt.GenerateSalt();
-            string passHash = BCrypt.Net.BCrypt.HashPassword(Input.Password1, salt);
+            string passHash = BCrypt.Net.BCrypt.HashPassword(Input.Password, salt);
 
             var user = new User { elektroninis_paštas = Input.Email, naudotojo_vardas = Input.FirstName, naudotojo_pavarde = Input.LastName, slaptažodis = passHash };
 

@@ -8,7 +8,6 @@
 <div class="text-center">
     <h1 class="display-4">Registruotis</h1>
 </div>
-@Html.ValidationSummary()
 <form method="post">
     @if (TempData["SuccessMessage"] != null)
     {
@@ -16,29 +15,37 @@
             @TempData["SuccessMessage"]
         </div>
     }
-    <div class="form-group">
-        <label for="inputEmail">Vardas</label>
-        <input asp-for="Input.FirstName" type="text" class="form-control" id="inputFirstName" required>
+    <div class="form-group mb-3">
+        <label for="inputFirstName">Vardas</label>
+        <input asp-for="Input.FirstName" type="text" class="form-control" id="inputFirstName">
+        <span class="text-danger" asp-validation-for="Input.FirstName"></span>
     </div>
-    <div class="form-group">
-        <label for="inputEmail">Pavardė</label>
-        <input asp-for="Input.LastName" type="text" class="form-control" id="inputLastName" required>
+    <div class="form-group mb-3">
+        <label for="inputLastName">Pavardė</label>
+        <input asp-for="Input.LastName" type="text" class="form-control" id="inputLastName">
+        <span class="text-danger" asp-validation-for="Input.LastName"></span>
     </div>
-    <div class="form-group">
-        <label for="inputEmail">Tel. nr.</label>
-        <input asp-for="Input.PhoneNumber" type="tel" class="form-control" id="inputPhone" required>
+    <div class="form-group mb-3">
+        <label for="inputPhoneNumber">Tel. nr.</label>
+        <input asp-for="Input.PhoneNumber" type="tel" class="form-control" id="inputPhone">
+        <span class="text-danger" asp-validation-for="Input.PhoneNumber"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="inputEmail">El. paštas</label>
-        <input asp-for="Input.Email" type="email" class="form-control" id="inputEmail" required>
+        <input asp-for="Input.Email" type="email" class="form-control" id="inputEmail">
+        <span class="text-danger" asp-validation-for="Input.Email"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label for="inputPassword">Slaptažodis</label>
-        <input asp-for="Input.Password1" type="password" class="form-control" id="inputPassword1" required>
+        <input asp-for="Input.Password" type="password" class="form-control" id="inputPassword">
+        <span class="text-danger" asp-validation-for="Input.Password"></span>
     </div>
-    <div class="form-group">
-        <label for="inputPassword">Pakartoti slaptažodį</label>
-        <input asp-for="Input.Password2" type="password" class="form-control" id="inputPassword2" required>
+    <div class="form-group mb-3">
+        <label for="inputPassword2">Pakartoti slaptažodį</label>
+        <input asp-for="Input.Password2" type="password" class="form-control" id="inputPassword2">
+        <span class="text-danger" asp-validation-for="Input.Password2"></span>
     </div>
-    <button type="submit" class="btn btn-primary">Registruotis</button>
+    <div class="form-group mb-3">
+        <button type="submit" class="btn btn-primary">Registruotis</button>
+    </div>
 </form>
