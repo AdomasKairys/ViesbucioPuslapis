@@ -22,13 +22,6 @@ namespace ViesbucioPuslapis.Pages
         {
             TrainingSess = _db.treniruote.ToList();
             GymReservation = _db.sporto_sales_rezervacija.ToList();
-
-
-
-
-            //string con = "server=localhost;user=adokai;Database=viesbucio_sistema;password=146025123";
-            //MySqlConnection mySqlConnection = new MySqlConnection(con);
-            //mySqlConnection.Open();
         }
     }
 }
