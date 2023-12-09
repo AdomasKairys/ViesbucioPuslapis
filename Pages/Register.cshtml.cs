@@ -36,6 +36,11 @@ namespace ViesbucioPuslapis.Pages
             [DataType(DataType.Password)]
             public string Password2 { get; set; }
 
+            [Required]
+            public DateOnly BirthDate { get; set; }
+
+            [Required]
+            public string Gender { get; set; }
         }
 
         private readonly ILogger<ErrorModel> _logger;
@@ -74,7 +79,7 @@ namespace ViesbucioPuslapis.Pages
             _db.Add(user);
             _db.SaveChanges();
 
-            var client = new Client { id_Naudotojas = user.id_Naudotojas, kliento_telefono_numeris = Input.PhoneNumber };
+            var client = new Client { id_Naudotojas = user.id_Naudotojas, kliento_telefono_numeris = Input.PhoneNumber, kliento_gimimo_data = Input.BirthDate, kliento_lytis = Input.Gender };
 
             _db.Add(client);
             _db.SaveChanges();

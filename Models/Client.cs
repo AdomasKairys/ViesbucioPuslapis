@@ -6,9 +6,17 @@ namespace ViesbucioPuslapis.Models
     public class Client
     {
         [Key]
+
+        [Required]
         public int id_Naudotojas { get; set; }
+
+        [Required]
         public string kliento_telefono_numeris { get; set; }
+
+        [Required]
         public DateOnly kliento_gimimo_data { get; set; }
+
+        [Required]
         public string kliento_lytis { get; set; }
 
     }
