@@ -35,7 +35,7 @@ namespace ViesbucioPuslapis.Pages
             if (trainingSessId != null && int.TryParse(trainingSessId, out int id))
             {
                 Console.WriteLine("a");
-                _db.Add<GymReservation>(new GymReservation { fk_Klientas_id_Naudotojas = 2, fk_Treniruote_treniruotes_nr = id, rezervacijos_laikas = DateTime.Now});
+                _db.Add(new GymReservation { fk_Klientas_id_Naudotojas = 2, fk_Treniruote_treniruotes_nr = id, rezervacijos_laikas = DateTime.Now});
                 _db.SaveChanges();
             }
             return Redirect("./GymTimeList");
