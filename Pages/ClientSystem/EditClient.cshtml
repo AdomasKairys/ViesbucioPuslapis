@@ -5,37 +5,38 @@
 }
 
 <h1>@ViewData["Title"]</h1>
-<form method="post" asp-page-handler="OnPost">
 @if (Model.Client != null && Model.User != null)
 {
-    <form method="post">
+    <form method="post" asp-page-handler="OnPost">
         <div class="form-group">
-            <label for="name">Vardas</label>
-            <input type="text" class="form-control" id="name" name="naudotojo_vardas" value="@Model.User.naudotojo_vardas" required>
+            <label for="naudotojo_vardas">Vardas</label>
+            <input type="text" class="form-control" id="naudotojo_vardas" name="naudotojo_vardas" value="@Model.User.naudotojo_vardas" required>
         </div>
         <div class="form-group">
-            <label for="surname">Pavardė</label>
-            <input type="text" class="form-control" id="surname" name="naudotojo_pavarde" value="@Model.User.naudotojo_pavarde" required>
+            <label for="naudotojo_pavarde">Pavardė</label>
+            <input type="text" class="form-control" id="naudotojo_pavarde" name="naudotojo_pavarde" value="@Model.User.naudotojo_pavarde" required>
         </div>
         <div class="form-group">
-            <label for="email">Elektroninis paštas</label>
-            <input type="email" class="form-control" id="email" name="elektroninis_paštas" value="@Model.User.elektroninis_paštas" required>
+            <label for="elektroninis_paštas">Elektroninis paštas</label>
+            <input type="email" class="form-control" id="elektroninis_paštas" name="elektroninis_paštas" value="@Model.User.elektroninis_paštas" required>
         </div>
         <div class="form-group">
-            <label for="password">Slaptažodis</label>
-            <input type="text" class="form-control" id="password" name="slaptažodis" value="@Model.User.slaptažodis" required>
+            <label for="slaptažodis">Slaptažodis</label>
+            <input type="text" class="form-control" id="slaptažodis" name="slaptažodis" value="@Model.User.slaptažodis" required>
         </div>
         <div class="form-group">
-            <label for="phonenum">Telefono numeris</label>
-            <input type="tel" class="form-control" id="phonenum" name="kliento_telefono_numeris" value="@Model.Client.kliento_telefono_numeris" required>
+            <label for="kliento_telefono_numeris">Telefono numeris</label>
+            <input type="number" class="form-control" id="kliento_telefono_numeris" name="kliento_telefono_numeris" value="@Model.Client.kliento_telefono_numeris" required>
         </div>
         <div class="form-group">
-            <label for="date">Gimimo data</label>
-            <input type="date" class="form-control" id="date" name="kliento_gimimo_data" value="@Model.Client.kliento_gimimo_data.ToString("yyyy-MM-dd")" required>
+            <label for="kliento_gimimo_data">Gimimo data</label>
+            <input type="date" class="form-control" id="kliento_gimimo_data" name="kliento_gimimo_data" value="@Model.Client.kliento_gimimo_data.ToString("yyyy-MM-dd")" required>
         </div>
         <!-- Include other client editing fields as needed -->
 
         <button type="submit" class="btn btn-primary">Išsaugoti</button>
     </form>
 }
-</form>
+<div class="text-center">
+    <a class="text-dark" asp-area="" asp-page="/ClientSystem/ClientsList">Grįžti į klientų sąrašą</a>
+</div>

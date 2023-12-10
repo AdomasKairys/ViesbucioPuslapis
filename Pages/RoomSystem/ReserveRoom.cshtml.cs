@@ -38,6 +38,7 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
             room = _db.kambarys.First(r => r.kambario_numeris == roomnr.ToString());
 
             reservationCost = days * room.nakties_kaina;
+
         }
     }
 }

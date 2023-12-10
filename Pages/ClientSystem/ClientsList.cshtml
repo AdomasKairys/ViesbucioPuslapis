@@ -31,8 +31,8 @@
                         <td>@user.elektroninis_paštas</td>
                         <td>@user.slaptažodis</td>
                     <td>
-                            <a asp-page="./ClientDetails" asp-route-id="@client.id_Naudotojas">Peržiūrėti</a> |
-                        <a asp-page="./EditClient" asp-route-id="@client.id_Naudotojas">Redaguoti</a>
+                            <a asp-page="/ClientSystem/ClientDetails" asp-route-id="@client.id_Naudotojas">Peržiūrėti</a> |
+                        <a asp-page="/ClientSystem/EditClient" asp-route-id="@client.id_Naudotojas">Redaguoti</a>
                     </td>
                 </tr>
                 }
@@ -41,3 +41,7 @@
 
     </tbody>
 </table>
+
+<div class="text-center">
+    <a class="text-dark" asp-area="" asp-page="/Index">Grįžti</a>
+</div>

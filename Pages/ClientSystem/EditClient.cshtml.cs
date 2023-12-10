@@ -1,5 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Linq;
 using ViesbucioPuslapis.Data;
 using ViesbucioPuslapis.Models;
 
@@ -7,42 +11,57 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
 {
     public class EditClientModel : PageModel
     {
-        private readonly ILogger<ErrorModel> _logger;
+        private readonly ILogger<EditClientModel> _logger;
         private readonly HotelDbContext _db;
 
         [BindProperty]
-        public Client Client { get; set; } // Pridėkite šią eilutę
+        public Client Client { get; set; }
 
         [BindProperty]
-        public User User { get; set; } // Pridėkite šią eilutę
+        public User User { get; set; }
 
-        public EditClientModel(ILogger<ErrorModel> logger, HotelDbContext db)
+        public EditClientModel(ILogger<EditClientModel> logger, HotelDbContext db)
         {
             _logger = logger;
             _db = db;
         }
-        public void OnGet(int id)
+
+        public IActionResult OnGet(int id)
         {
+            // Gauti kliento ir naudotojo duomenis iš duomenų bazės
             Client = _db.klientas.FirstOrDefault(c => c.id_Naudotojas == id);
-            User = _db.naudotojas.FirstOrDefault(c => c.id_Naudotojas == id);
+            User = _db.naudotojas.FirstOrDefault(u => u.id_Naudotojas == id);
 
             Console.WriteLine("Client: " + Client?.ToString());
             Console.WriteLine("User: " + User?.ToString());
+            if (Client == null || User == null)
+            {
+                return NotFound(); // Grąžinti 404, jei kliento ar naudotojo nerasta
+            }
+
+            return Page();
         }
 
         public IActionResult OnPost()
         {
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    // Log or print ModelState errors
+            //    foreach (var modelState in ModelState.Values)
+            //    {
+            //        foreach (var error in modelState.Errors)
+            //        {
+            //            Console.WriteLine(error.ErrorMessage);
+            //        }
+            //    }
+            //    return Page();
+            //}
+            foreach (var modelState in ModelState.Values)
             {
-                // Log or print ModelState errors
-                foreach (var modelState in ModelState.Values)
+                foreach (var error in modelState.Errors)
                 {
-                    foreach (var error in modelState.Errors)
-                    {
-                        Console.WriteLine(error.ErrorMessage);
-                    }
+                    Console.WriteLine(error.ErrorMessage);
                 }
-                return Page();
             }
 
 
@@ -59,24 +78,16 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
                 existingUser.slaptažodis = User.slaptažodis;
 
                 existingClient.kliento_telefono_numeris = Client.kliento_telefono_numeris;
-                existingClient.kliento_gimimo_data = Client.kliento_gimimo_data;
-
-
-                try
-                {
-                    _db.SaveChanges();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Error saving changes: " + ex.Message);
-                    // Log the exception or handle it appropriately
-                }
-
+                existingClient.kliento_gimimo_data = Client.kliento_gimimo_data;                 
             }
 
-            return RedirectToPage("./ClientList"); // Nukreipkite į klientų sąrašo puslapį po sėkmingo išsaugojimo
+            _db.SaveChanges();
+            //_db.Update(existingUser);
+            //_db.Update(existingClient);
+
+            // Naujas kodas: Nukreipkite į klientų sąrašo puslapį po sėkmingo išsaugojimo
+            return RedirectToPage("/ClientSystem/ClientsList");
         }
 
     }
-
 }

@@ -1,6 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using ViesbucioPuslapis.Data;
+using ViesbucioPuslapis.Models;
 
 namespace ViesbucioPuslapis.Pages
 {
@@ -19,19 +24,26 @@ namespace ViesbucioPuslapis.Pages
             [DataType(DataType.Password)]
             public string Password { get; set; }
         }
+        private readonly ILogger<ErrorModel> _logger;
+        private readonly HotelDbContext _db;
+        public List<User> users { get; set; }
+
+        public LoginModel(ILogger<ErrorModel> logger, HotelDbContext db)
+        {
+            _logger = logger;
+            _db = db;
+        }
 
         public IActionResult OnPost()
         {
             if (ModelState.IsValid)
             {
-                // Hardcode'inti prisijungimo duomenys
-                string hardcodedEmail = "stud@example.com";
-                string hardcodedPassword = "stud";
-
-                if (Input.Email == hardcodedEmail && Input.Password == hardcodedPassword)
+                
+                if (_db.naudotojas.Any(user => user.elektroninis_paštas == Input.Email) && _db.naudotojas.Any(user => user.slaptažodis == Input.Password))
                 {
                     // Įvykdomas prisijungimas
-                    TempData["SuccessMessage"] = "Sėkmingai prisijungta!";
+                    TempData["SuccessMessage"] = String.Format("Sėkmingai prisijungta! Prisijungimo pastas: {0}", Input.Email);
+
                     return RedirectToPage("/Index");
                 }
                 else
