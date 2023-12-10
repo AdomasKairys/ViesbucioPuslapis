@@ -14,10 +14,12 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
         public string roomType;
         public int roomId { get; set; }
 
+        public DateTime startDate;
+        public DateTime endDate;
+
 
         public List<Room> rooms { get; set; }
         public List<Reservation> reservations { get; set; }
-        public List<Room> displayRooms { get; set; }
 
 
         public ReserveRoomListModel(ILogger<ErrorModel> logger, HotelDbContext db)
@@ -26,47 +28,44 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
             _db = db;
         }
 
-        public void OnGet(int roomid)
+        public void OnGet(int roomid, string start, string end)
         {
+            if (start == null || end == null)
+                return;
+
+            startDate = DateTime.Parse(start);
+            endDate = DateTime.Parse(end);
+
             roomTypes = _db.kambario_tipas.ToList();
             RoomTypes temp = roomTypes.Single(type => type.id_Kambario_tipas == roomid);
 
             roomType = temp.name;
             roomId = temp.id_Kambario_tipas;
 
-            rooms = _db.kambarys.ToList();
+            reservations = _db.kambario_rezervacija.Where(res => res.pradžia >= startDate && res.pabaiga <= endDate).ToList();
+            rooms = _db.kambarys.Where(room => room.tipas == roomId).ToList();
 
-            //Filter room types
             foreach (var room in rooms.ToList())
             {
-                if (room.tipas != roomid)
+                foreach(var res in reservations)
                 {
-                    rooms.Remove(room);
-                }
-            }
-
-            displayRooms = rooms;
-   
-        }
-
-        public IActionResult OnPost(int roomid, DateTime start, DateTime end)
-        {
-            if (reservations != null)
-            {
-                foreach (var res in reservations)
-                {
-                    foreach (var room in displayRooms.ToList())
+                    if (res.fk_Kambarys_kambario_numeris == room.kambario_numeris)
                     {
-                        if (res.pradžia >= start && res.pabaiga <= end && res.fk_Kambarys_kambario_numeris == room.kambario_numeris)
-                        {
-                            displayRooms.Remove(room);
-                        }
+                        rooms.Remove(room);
                     }
                 }
+
             }
+             
+        }
 
-            return RedirectToPage("");
+        public IActionResult OnPost()
+        {
+            string roomnr = Request.Form["roomnr"];
+            string start = Request.Form["start"];
+            string end = Request.Form["end"];
 
+            return Redirect(string.Format("./ReserveRoom?roomnr={0}&start={1}&end={2}", roomnr, start, end));
         }
 
     }

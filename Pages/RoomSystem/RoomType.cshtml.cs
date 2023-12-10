@@ -28,5 +28,14 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
             roomId = temp.id_Kambario_tipas;
         }
 
+        public IActionResult OnPost()
+        {
+            string roomid = Request.Form["roomid"];
+            string start = Request.Form["start"];
+            string end = Request.Form["end"];
+
+            return Redirect(string.Format("./ReserveRoomList?roomid={0}&start={1}&end={2}", roomid, start, end));
+        }
+
     }
 }

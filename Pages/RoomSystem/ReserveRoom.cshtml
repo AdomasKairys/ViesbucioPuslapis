@@ -5,15 +5,40 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Kambario rezervacija</h1>
+    <h1 class="display-4">Rezervuoti @Model.room.kambario_numeris kambarį</h1>
 
+    <div class="row justify-content-start">
+        <div class="col-sm-2">
+            <a class="btn btn-danger" href="/Index" role="button">Atšaukti</a>
+        </div>
+    </div>
+
+    <div class="row align-content-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Kambario numeris</th>
+                    <th>Vietų kiekis</th>
+                    <th>Rezervacijos kaina</th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>@Model.room.kambario_numeris</td>
+                    <td>@Model.room.vietu_kiekis</td>
+                    <td>@Model.reservationCost</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div class="text-center">
-    <h1 class="display-4"></h1>
-
-
-
-    <a class="text-dark" asp-area="" asp-page="/ClientSystem/ReservationPayment">Atlikti mokėjimą</a>
-    <br>
+<div class="row justify-content-end">
+    <div class="col-sm-2">
+        <button class="btn btn-primary" type="submit">Rezervuoti</button> @* No functionality on this button yet*@
+    </div>
 </div>
+
+

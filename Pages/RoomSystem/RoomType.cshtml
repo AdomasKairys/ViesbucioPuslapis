@@ -7,7 +7,26 @@
 <div class="text-center">
     <h1 class="display-4">@Model.roomType</h1>
     <br>
-    <a class="btn btn-primary" role="button" asp-page="/RoomSystem/ReserveRoomList" asp-route-roomid="@Model.roomId">Rezervuoti</a>
+
+    <form method="POST">
+        <div class="row align-content-start">
+            <div class="col-sm-4">
+                <label for="start">Rezervacijos pradžia:</label>
+                <input id="start" name="start" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+            </div>
+
+            <div class="col-sm-4">
+                <label for="end">Revervacijos pabaiga:</label>
+                <input type="date" id="end" name="end" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+            </div>
+
+            <input type="hidden" id="roomid" name="roomid" value="@Model.roomId">
+
+            <div class="col-sm-4">
+                <input class="btn btn-success" type="submit" value="Rodyti laisvus kambarius">
+            </div>
+        </div>
+    </form>
     <br>
     <a class="text-dark" asp-area="" asp-page="/RoomSystem/RoomTypes">Grįžti</a>
 </div>
