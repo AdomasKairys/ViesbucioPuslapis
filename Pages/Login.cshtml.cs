@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using BCrypt.Net;
 using ViesbucioPuslapis.Data;
 using ViesbucioPuslapis.Models;
 
@@ -38,8 +39,9 @@ namespace ViesbucioPuslapis.Pages
         {
             if (ModelState.IsValid)
             {
-                
-                if (_db.naudotojas.Any(user => user.elektroninis_paštas == Input.Email) && _db.naudotojas.Any(user => user.slaptažodis == Input.Password))
+                User? user;
+                if ((user =_db.naudotojas.Where(user => user.elektroninis_paštas == Input.Email).FirstOrDefault()) != null && 
+                    BCrypt.Net.BCrypt.Verify(Input.Password, user.slaptažodis))
                 {
                     // Įvykdomas prisijungimas
                     TempData["SuccessMessage"] = String.Format("Sėkmingai prisijungta! Prisijungimo pastas: {0}", Input.Email);
