@@ -22,7 +22,7 @@
                     <li class="list-group-item small text-left">Treniruočių skaičius</li>
                 </ul>
                 <div class="card-body">
-                    <a class="text-dark btn btn-info @string.Format("{0}", dayToday > i ? "disabled":"")" role="button" aria-disabled="@string.Format("{0}", dayToday > i ? "true":"false")" asp-area="" asp-page="./GymTimeList" asp-route-Weekd="@i">Pažiūrėti</a>
+                    <a class="text-dark btn btn-info @string.Format("{0}", (dayToday == 0 ? 7 : dayToday) > i ? "disabled":"")" role="button" aria-disabled="@string.Format("{0}", dayToday > i ? "true":"false")" asp-area="" asp-page="./GymTimeList" asp-route-Weekd="@i">Pažiūrėti</a>
                 </div>
             </div>
         }

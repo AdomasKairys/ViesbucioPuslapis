@@ -7,9 +7,27 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using BCrypt.Net;
 using ViesbucioPuslapis.Data;
 using ViesbucioPuslapis.Models;
+using System.Text.Json;
 
 namespace ViesbucioPuslapis.Pages
 {
+    public static class SessionExtensions
+    {
+        public static T GetComplexData<T>(this ISession session, string key)
+        {
+            var data = session.GetString(key);
+            if (data == null)
+            {
+                return default(T);
+            }
+            return JsonSerializer.Deserialize<T>(data);
+        }
+
+        public static void SetComplexData(this ISession session, string key, object value)
+        {
+            session.SetString(key, JsonSerializer.Serialize(value));
+        }
+    }
     public class LoginModel : PageModel
     {
         [BindProperty]
@@ -48,6 +66,9 @@ namespace ViesbucioPuslapis.Pages
 
                     // Įvykdomas prisijungimas
                     TempData["SuccessMessage"] = String.Format("Sėkmingai prisijungta! Prisijungimo pastas: {0}", Input.Email);
+
+                    HttpContext.Session.SetComplexData("user", user);
+
 
                     return RedirectToPage("/Index");
                 }

@@ -3,12 +3,12 @@
 @{
     ViewData["Title"] = "Treniruočių rezervacija";
 }
-<a class="text-dark" asp-area="" asp-page="./GymTimeList">Grįžti atgal</a>
-<table class="table">
+<table class="table" id="rezervations">
     <thead>
         <tr>
             <th>Trenerio vardas, pavardė</th>
             <th>Vietu kiekis</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -20,12 +20,15 @@
                     <td>@sess.Item2.trenerio_vardas @sess.Item2.trenerio_pavarde</td>
                     <td>@sess.Item1.vietu_kiekis</td>
                     <td>
-                        <form id="rezerveTraining" method="post" role="form">
-                            <button class="btn btn-success" type="submit" name="TsessID" value='@sess.Item1.treniruotes_nr' 
-                            @if (sess.Item1.vietu_kiekis == 0){ <text>disabled</text> } 
-                            >
-                                Rezervuoti
-                            </button>
+                        <form id="rezerveTraining" asp-page-handler="AddRezervation" method="post" role="form">
+                            <input type="hidden" name="weekD" value='@Model.WeekDay' /> 
+                            <input asp-for="SessionId" type="hidden" value='@sess.Item1.treniruotes_nr' /> 
+                            @if(sess.Item1.vietu_kiekis == 0)
+                            {
+                                <input class="btn btn-success" type="submit" value="Rezervuoti" disabled/>
+                            }else{
+                                <input class="btn btn-success" type="submit" value="Rezervuoti"/>
+                            }
                         </form>
                     </td>
                 </tr>
@@ -39,3 +42,39 @@
         }
     </tbody>
 </table>
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Launch demo modal
+</button>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+@section Scripts{
+    <script>
+        const table = new DataTable('#rezervations', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/lt.json',
+            },
+            columnDefs: [
+                { orderable: false, targets: -1 , searchable: false }
+            ]
+        });
+    </script>
+}

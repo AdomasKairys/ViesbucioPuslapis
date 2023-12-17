@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Globalization;
+using System.Text.Json;
 using ViesbucioPuslapis.Data;
 using ViesbucioPuslapis.Models;
 
@@ -10,6 +11,11 @@ namespace ViesbucioPuslapis.Pages
     {
         private readonly ILogger<ErrorModel> _logger;
         private readonly HotelDbContext _db;
+
+        [BindProperty]
+        public int SessionId { get; set; }
+
+        public int WeekDay { get; set; }
         public List<(TrainingSession, Trainer)> TrainingSess { get; set; }
         public GymReservationViewModel(ILogger<ErrorModel> logger, HotelDbContext db)
         {
@@ -27,7 +33,7 @@ namespace ViesbucioPuslapis.Pages
 
             TimeOnly startTime = TimeOnly.Parse(start);
             TimeOnly endTime = TimeOnly.Parse(end);
-            int weekDay = int.Parse(weekd);
+            WeekDay = int.Parse(weekd);
 
             CultureInfo myCI = new CultureInfo("lt-LT");
             Calendar myCal = myCI.Calendar;
@@ -50,20 +56,16 @@ namespace ViesbucioPuslapis.Pages
 
             var trainers =  _db.treneris.ToList();
 
-            TrainingSess = training.Where(t=> t.treniruotes_pradzia == startTime && t.treniruotes_pabaiga==endTime && t.savaites_diena==weekDay).Select(t=>(t, trainers.Where(tr=>t.fk_Trenerisid_Treneris==tr.id_Treneris).First())).ToList();
+            TrainingSess = training.Where(t=> t.treniruotes_pradzia == startTime && t.treniruotes_pabaiga==endTime && t.savaites_diena== WeekDay).Select(t=>(t, trainers.Where(tr=>t.fk_Trenerisid_Treneris==tr.id_Treneris).First())).ToList();
 
 
         }
-        public IActionResult OnPost()
+        public IActionResult OnPostAddRezervation(int weekD)
         {
-            string? trainingSessId = Request.Form["TsessID"];
-            if (trainingSessId != null && int.TryParse(trainingSessId, out int id))
-            {
-                Console.WriteLine("a");
-                _db.Add(new GymReservation { fk_Klientas_id_Naudotojas = 2, fk_Treniruote_treniruotes_nr = id, rezervacijos_laikas = DateTime.Now});
-                _db.SaveChanges();
-            }
-            return Redirect("./GymTimeList");
+            TempData["SuccessRezervation"] = String.Format("Rezervacija sekmingai atlikta");
+            _db.Add(new GymReservation { fk_Klientas_id_Naudotojas = 2, fk_Treniruote_treniruotes_nr = SessionId, rezervacijos_laikas = DateTime.Now});
+            _db.SaveChanges();
+            return Redirect($"/GymSystem/GymTimeList?WeekD={weekD}");
         }
     }
 }

@@ -3,6 +3,12 @@
 @{
     ViewData["Title"] = "Treniruočių laikų sąrašas";
 }
+@if (TempData["SuccessRezervation"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessRezervation"]
+    </div>
+}
 <h1>@ViewData["Title"]</h1>
 <p>Jusu rezervacijos: </p>
 <table class="table">
@@ -18,12 +24,13 @@
 
 <br />
 <p>Galimos rezervacijos: </p>
-<table class="table">
+<table class="table" id="rezervations">
     <thead>
         <tr>
             <th>Laikas nuo</th>
             <th>Laikas iki</th>
             <th>Viekų skaičius</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -47,3 +54,15 @@
         }
     </tbody>
 </table>
+@section Scripts{
+    <script>
+        const table = new DataTable('#rezervations', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/lt.json',
+            },
+            columnDefs: [
+                { orderable: false, targets: -1 , searchable: false }
+            ]
+        });
+    </script>
+}
