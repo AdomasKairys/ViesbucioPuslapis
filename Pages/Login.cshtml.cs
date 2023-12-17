@@ -13,6 +13,7 @@ namespace ViesbucioPuslapis.Pages
 {
     public static class SessionExtensions
     {
+        public static JsonSerializerOptions options = new JsonSerializerOptions { IncludeFields = true };
         public static T GetComplexData<T>(this ISession session, string key)
         {
             var data = session.GetString(key);
@@ -20,12 +21,12 @@ namespace ViesbucioPuslapis.Pages
             {
                 return default(T);
             }
-            return JsonSerializer.Deserialize<T>(data);
+            return JsonSerializer.Deserialize<T>(data, options);
         }
 
         public static void SetComplexData(this ISession session, string key, object value)
         {
-            session.SetString(key, JsonSerializer.Serialize(value));
+            session.SetString(key, JsonSerializer.Serialize(value, options));
         }
     }
     public class LoginModel : PageModel

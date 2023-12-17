@@ -18,8 +18,9 @@
                     <h5 class="card-title text-capitalize">@dayName</h5>
                 </div>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item small text-left">Laisvų vietų skaičius</li>
-                    <li class="list-group-item small text-left">Treniruočių skaičius</li>
+                    <li class="list-group-item small text-left">Laisvų vietų skaičius:<br> @Model.FreeSlots</li>
+                    <li class="list-group-item small text-left">Treniruočių skaičius:<br> @Model.SessionAmm</li>
+                    <li class="list-group-item small text-left">Rezervacijų skaičius:<br> @Model.RezervationCount</li>
                 </ul>
                 <div class="card-body">
                     <a class="text-dark btn btn-info @string.Format("{0}", (dayToday == 0 ? 7 : dayToday) > i ? "disabled":"")" role="button" aria-disabled="@string.Format("{0}", dayToday > i ? "true":"false")" asp-area="" asp-page="./GymTimeList" asp-route-Weekd="@i">Pažiūrėti</a>

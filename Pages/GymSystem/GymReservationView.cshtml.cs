@@ -7,20 +7,56 @@ using ViesbucioPuslapis.Models;
 
 namespace ViesbucioPuslapis.Pages
 {
+    
     public class GymReservationViewModel : PageModel
     {
+        public class Specialization
+        {
+            public double kulturizmas { get; set; }
+            public double legvoji_atletima { get; set; }
+            public double sunkioji_atletika { get; set; }
+            public double jegos_trikove { get; set; }
+        }
+
+
         private readonly ILogger<ErrorModel> _logger;
         private readonly HotelDbContext _db;
 
         [BindProperty]
         public int SessionId { get; set; }
-
+        [BindProperty]
+        public Specialization UserSpec { get; set; }
         public int WeekDay { get; set; }
+        public List<(TrainingSession Session, Trainer Train, Specialization Spec)> AutoSelected { get; set; }
+
         public List<(TrainingSession, Trainer)> TrainingSess { get; set; }
         public GymReservationViewModel(ILogger<ErrorModel> logger, HotelDbContext db)
         {
             _logger = logger;
             _db = db;
+        }
+        public (Trainer Train, Specialization Spec)? AutomaticSelect(List<Trainer> trainers)
+        {
+            List<(Trainer Train, Specialization Spec)> specs = trainers.Select(t => (t, JsonSerializer.Deserialize<Specialization>(t.specifikacija))).ToList();
+
+            (Trainer Train, Specialization Spec)? returnVal = null;
+            double score = double.MaxValue;
+            foreach (var spec in specs)
+            {
+                double curr = 0;
+                foreach (var prop in spec.Spec.GetType().GetProperties())
+                {
+                    curr += Math.Pow((double)prop.GetValue(spec.Spec)-(double)prop.GetValue(UserSpec), 2);
+                }
+                curr = Math.Sqrt(curr);
+                if(score > curr)
+                {
+                    score = curr;
+                    returnVal = spec;
+                }
+            }
+            return returnVal;
+
         }
         public void OnGet()
         {
@@ -51,14 +87,11 @@ namespace ViesbucioPuslapis.Pages
                 vietu_kiekis = t.vietu_kiekis - rezervations.ToList().Where(r =>
                     (r.fk_Treniruote_treniruotes_nr == t.treniruotes_nr) && (myCal.GetWeekOfYear(r.rezervacijos_laikas, myCWR, myFirstDOW).CompareTo(myCal.GetWeekOfYear(DateTime.Now, myCWR, myFirstDOW)) == 0)
                     ).Count(),
-            }).ToList();
-
+            }).Where(t => t.treniruotes_pradzia > TimeOnly.FromDateTime(DateTime.Now)).ToList();
 
             var trainers =  _db.treneris.ToList();
 
-            TrainingSess = training.Where(t=> t.treniruotes_pradzia == startTime && t.treniruotes_pabaiga==endTime && t.savaites_diena== WeekDay).Select(t=>(t, trainers.Where(tr=>t.fk_Trenerisid_Treneris==tr.id_Treneris).First())).ToList();
-
-
+            TrainingSess = training.Where(t=> t.treniruotes_pradzia == startTime && t.treniruotes_pabaiga==endTime && t.savaites_diena== WeekDay).Select(t=>(t, trainers.First(tr=>t.fk_Trenerisid_Treneris==tr.id_Treneris))).ToList();
         }
         public IActionResult OnPostAddRezervation(int weekD)
         {
@@ -72,6 +105,20 @@ namespace ViesbucioPuslapis.Pages
             _db.Add(new GymReservation { fk_Klientas_id_Naudotojas = clientId.id_Naudotojas, fk_Treniruote_treniruotes_nr = SessionId, rezervacijos_laikas = DateTime.Now});
             _db.SaveChanges();
             return Redirect($"/GymSystem/GymTimeList?WeekD={weekD}");
+        }
+        public IActionResult OnPost()
+        {
+            OnGet();
+            (Trainer Train, Specialization Spec)? auto = AutomaticSelect(TrainingSess.Select(t => t.Item2).ToList());
+
+            if(auto == null)
+                return Page();
+
+            (Trainer Train, Specialization Spec) = ((Trainer Train, Specialization Spec))auto;
+
+            AutoSelected = TrainingSess.Select(t => (t.Item1, t.Item2, Spec)).Where(t => t.Item2.id_Treneris == Train.id_Treneris).ToList();
+
+            return Page();
         }
     }
 }
