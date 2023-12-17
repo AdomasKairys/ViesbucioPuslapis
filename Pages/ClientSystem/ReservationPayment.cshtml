@@ -24,7 +24,7 @@
     </table>
 </div>*@
 
-<div class="container">
+@*<div class="container">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card mt-5">
@@ -56,4 +56,53 @@
             </div>
         </div>
     </div>
+</div>*@
+
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Kambario rezervacijos apmokėjimas</h2>
+
+                    <!-- Mokėjimo forma -->
+                    <form method="post" action="https://www.paypal.com/cgi-bin/webscr" target="_blank">
+                        <!-- Pakeiskite veiksmo (action) kelią pagal savo poreikius -->
+                        <input type="hidden" name="cmd" value="_xclick">
+                        <input type="hidden" name="business" value="YOUR_PAYPAL_EMAIL">
+                        <input type="hidden" name="item_name" value="Kambario rezervacija">
+                        <input type="hidden" name="amount" value="@Model.reservationCost">
+                        <input type="hidden" name="currency_code" value="USD">
+                        <input type="hidden" name="return" value="URL_TO_RETURN_AFTER_PAYMENT_SUCCESS">
+                        <input type="hidden" name="cancel_return" value="URL_TO_RETURN_AFTER_PAYMENT_CANCEL">
+                        <input type="submit" class="btn btn-primary btn-block" value="Apmokėti su PayPal">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+
+<!-- JavaScript kodas puslapio apačioje -->
+<script>
+    paypal.Buttons({
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '@Model.reservationCost' // Dynamically insert the reservation cost
+                    }
+                }]
+            });
+        },
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                console.log(details);
+                // Add any additional logic you need after the payment is captured
+            });
+        }
+    }).render('#paypal-button');
+</script>

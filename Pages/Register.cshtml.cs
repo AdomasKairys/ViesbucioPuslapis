@@ -39,7 +39,7 @@ namespace ViesbucioPuslapis.Pages
 
             [Required(ErrorMessage = "Gimimo data yra privaloma")]
             [DataType(DataType.Date)]
-            public DateOnly BirthDate { get; set; }
+            public DateTime BirthDate { get; set; }
 
             [Required(ErrorMessage = "Prašome nurodyti savo lyti")]
             public string Gender { get; set; }

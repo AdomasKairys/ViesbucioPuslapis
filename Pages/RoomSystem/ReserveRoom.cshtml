@@ -5,7 +5,7 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Rezervuoti @Model.room.kambario_numeris kambarį</h1>
+    <h1 class="display-4">Rezervuoti @Model.RoomNr kambarį</h1>
 
     <div class="row justify-content-start">
         <div class="col-sm-2">
@@ -13,35 +13,36 @@
         </div>
     </div>
 
-    <div class="row align-content-center">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Kambario numeris</th>
-                    <th>Vietų kiekis</th>
-                    <th>Rezervacijos kaina</th>
-                    <th></th>
-                </tr>
-            </thead>
+    <form method="post">
+        <!-- Pridėkite formą -->
+        <div class="row align-content-center">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Kambario numeris</th>
+                        <th>Vietų kiekis</th>
+                        <th>Rezervacijos kaina</th>
+                        <th></th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                <tr>
-                    <td>@Model.room.kambario_numeris</td>
-                    <td>@Model.room.vietu_kiekis</td>
-                    <td>@Model.reservationCost</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+                <tbody>
+                    <tr>
+                        <td>@Model.RoomNr</td>
+                        <td>@Model.days</td>
+                        <td>@Model.reservationCost</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="row justify-content-end">
+            <div class="col-sm-2">
+                <button class="btn btn-primary" type="submit">Rezervuoti</button> <!-- Pridekite type="submit" -->
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-success" asp-page="/ClientSystem/ReservationPayment">Mokėti</a>
+            </div>
+        </div>
+    </form> <!-- Uždarykite formą -->
 </div>
-
-<div class="row justify-content-end">
-    <div class="col-sm-2">
-        <button class="btn btn-primary"  type="submit">Rezervuoti</button> @* No functionality on this button yet*@
-    </div>
-    <div class="col-sm-2">
-        <a class="btn btn-success" asp-page="/ClientSystem/ReservationPayment">Mokėti</a>
-    </div>
-</div>
-
-

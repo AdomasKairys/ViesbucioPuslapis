@@ -14,7 +14,7 @@ namespace ViesbucioPuslapis.Models
         public string kliento_telefono_numeris { get; set; }
 
         [Required]
-        public DateOnly kliento_gimimo_data { get; set; }
+        public DateTime kliento_gimimo_data { get; set; }
 
         [Required]
         public string kliento_lytis { get; set; }

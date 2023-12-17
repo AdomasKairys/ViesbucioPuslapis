@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ViesbucioPuslapis.Data;
 using ViesbucioPuslapis.Models;
@@ -13,6 +13,10 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
         public DateTime startDate;
         public DateTime endDate;
         public double reservationCost;
+        public string RoomNr { get; set; } = "";
+        //public string RoomNr { get; set; } = "";
+
+        public double days;
 
         public Room room { get; set; }
         public List<Reservation> reservations { get; set; }
@@ -32,13 +36,67 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
             endDate = DateTime.Parse(end);
 
             TimeSpan timeSpent = endDate - startDate;
-            double days = timeSpent.TotalDays;
+            days = timeSpent.TotalDays;
 
             reservations = _db.kambario_rezervacija.ToList();
             room = _db.kambarys.First(r => r.kambario_numeris == roomnr.ToString());
 
             reservationCost = days * room.nakties_kaina;
 
+            RoomNr = roomnr.ToString();
+
+            TempData["RoomNr"] = RoomNr;
+            TempData["Days"] = days.ToString();
+            TempData["Cost"] =  reservationCost.ToString();
         }
+        public string errorMessage = "";
+
+        public void OnPost()
+        {
+            string roomNrFromTempData = TempData["RoomNr"] as string;
+            string daysFromTempData = TempData["Days"] as string;
+            string costFromTempData = TempData["Cost"] as string;
+
+            if (roomNrFromTempData != null && double.TryParse(daysFromTempData, out double days) && double.TryParse(costFromTempData, out double cost))
+            {
+                TempData["RoomNr"] = roomNrFromTempData;
+                TempData["Days"] = daysFromTempData;
+                TempData["Cost"] = costFromTempData;
+
+                // Galite naudoti 'roomNrFromTempData', 'days' ir 'cost' reikšmes
+                Response.Redirect("/ClientSystem/CheckoutPayment");
+            }
+            else
+            {
+                // Įvyksta klaida - galbūt nėra reikiamos informacijos 'TempData'
+                errorMessage = "Failed";
+            }
+        }
+        //public void OnPost()
+        //{
+        //    //int client_id = HttpContext.Session.GetInt32("id") ?? 0;
+        //    //if (client_id < 1)
+        //    //{
+        //    //    Response.Redirect("/Login");
+        //    //    return;
+        //    //}
+        //    //if (!ModelState.IsValid)
+        //    //{
+        //    //    errorMessage = "Failed";
+        //    //    return;
+        //    //}
+
+
+        //   // string room = Request.Cookies["room"];
+        //    TempData["RoomNr"] = room.kambario_numeris;
+        //    TempData["Days"] = days.ToString();
+        //    TempData["Cost"] = reservationCost.ToString();
+        //    if (room.kambario_numeris != null)
+        //    {
+        //        Response.Redirect("/ClientSystem/CheckoutPayment");
+        //        return;
+        //    }
+        //    //return Redirect(string.Format("ClientSystem/CheckoutPayment"));
+        //}
     }
 }

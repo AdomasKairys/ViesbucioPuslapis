@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ViesbucioPuslapis.Data;
 using ViesbucioPuslapis.Models;
@@ -36,6 +36,16 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
             room = _db.kambarys.First(r => r.kambario_numeris == roomnr.ToString());
 
             reservationCost = days * room.nakties_kaina;
+        }
+
+        public IActionResult OnPostMakePayment(string cardNumber, string cardHolderName, string expiryDate, string cvv)
+        {
+            // Čia įvykdykite reikiamus veiksmus susijusius su mokėjimu
+            // Pavyzdžiui, patvirtinkite mokėjimą ir išsaugokite reikiamus duomenis
+            // ...
+
+            // Po sėkmingo mokėjimo nukreipkite vartotoją į atitinkamą puslapį
+            return RedirectToPage("/SubmitPayment");
         }
     }
 }

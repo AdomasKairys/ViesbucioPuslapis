@@ -43,6 +43,9 @@ namespace ViesbucioPuslapis.Pages
                 if ((user =_db.naudotojas.Where(user => user.elektroninis_paštas == Input.Email).FirstOrDefault()) != null && 
                     BCrypt.Net.BCrypt.Verify(Input.Password, user.slaptažodis))
                 {
+                    //HttpContext.Session.SetString("UserEmail", user.elektroninis_paštas);
+
+
                     // Įvykdomas prisijungimas
                     TempData["SuccessMessage"] = String.Format("Sėkmingai prisijungta! Prisijungimo pastas: {0}", Input.Email);
 

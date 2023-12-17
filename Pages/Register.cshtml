@@ -43,9 +43,14 @@
     </div>
     <div class="form-group mb-3">
         <label for="inputGender">Lytis</label>
-        <input asp-for="Input.Gender" type="text" class="form-control" id="inputGender">
+        <select asp-for="Input.Gender" class="form-control" id="inputGender">
+            <option value="Moteris">Moteris</option>
+            <option value="Vyras">Vyras</option>
+            <option value="Kita">Kita</option>
+        </select>
         <span class="text-danger" asp-validation-for="Input.Gender"></span>
     </div>
+
     <div class="form-group mb-3">
         <label for="inputPassword">Slaptažodis</label>
         <input asp-for="Input.Password" type="password" class="form-control" id="inputPassword">
