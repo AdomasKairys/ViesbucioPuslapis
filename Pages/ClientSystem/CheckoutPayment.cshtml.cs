@@ -154,6 +154,7 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
                             // update payment status in the database
 
                             return new JsonResult("success");
+                            
                         }
                       
                     }
