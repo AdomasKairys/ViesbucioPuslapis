@@ -11,9 +11,9 @@ namespace ViesbucioPuslapis.Pages
     {
         private readonly ILogger<ErrorModel> _logger;
         private readonly HotelDbContext _db;
-        public int RezervationCount { get; set; }
-        public int FreeSlots{ get; set; }
-        public int SessionAmm { get; set; }
+        public int[] RezervationCount { get; set; }
+        public int[] FreeSlots{ get; set; }
+        public int[] SessionAmm { get; set; }
 
 
 
@@ -41,17 +41,22 @@ namespace ViesbucioPuslapis.Pages
                     (r.fk_Treniruote_treniruotes_nr == t.treniruotes_nr) && (myCal.GetWeekOfYear(r.rezervacijos_laikas, myCWR, myFirstDOW).CompareTo(myCal.GetWeekOfYear(DateTime.Now, myCWR, myFirstDOW)) == 0)
                     ).Count(),
             }).Where(t => t.treniruotes_pradzia > TimeOnly.FromDateTime(DateTime.Now)).ToList();
+            RezervationCount = new int[7];
+            FreeSlots = new int[7];
+            SessionAmm = new int[7];
 
-            FreeSlots = training.Sum(t => t.vietu_kiekis);
-            SessionAmm = training.Count();
+            FreeSlots = Enumerable.Range(0, 7).Select( i => training.Where(t=>t.savaites_diena==i+1).Sum(t => t.vietu_kiekis)).ToArray();
+            SessionAmm = Enumerable.Range(0, 7).Select(i => training.Where(t => t.savaites_diena == i + 1).Count()).ToArray();
 
             var trainer = _db.treneris.ToList();
             var userData = HttpContext.Session.GetComplexData<User>("user");
             if (userData == null)
                 return;
-            RezervationCount = rezervations.ToList().Select(r => (r, training.FirstOrDefault(t => r.fk_Treniruote_treniruotes_nr == t.treniruotes_nr)))
-                .Select(r => (r.Item1, r.Item2, trainer.FirstOrDefault(t => r.Item2 != null ? r.Item2.fk_Trenerisid_Treneris == t.id_Treneris : false)))
-                .Where(r => r.Item1.fk_Klientas_id_Naudotojas == userData.id_Naudotojas).Count();
+            RezervationCount = Enumerable.Range(0, 7).Select(i => rezervations.ToList()
+                    .Select(r => (r, training.FirstOrDefault(t => r.fk_Treniruote_treniruotes_nr == t.treniruotes_nr)))
+                    .Select(r => (r.Item1, r.Item2, trainer.FirstOrDefault(t => r.Item2 != null ? r.Item2.fk_Trenerisid_Treneris == t.id_Treneris : false)))
+                    .Where(r => r.Item1.fk_Klientas_id_Naudotojas == userData.id_Naudotojas && r.Item2.savaites_diena == i+1).Count()
+                ).ToArray();
         }
     }
 }

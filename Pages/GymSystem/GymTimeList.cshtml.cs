@@ -57,7 +57,7 @@ namespace ViesbucioPuslapis.Pages
                 return;
             UserGymRezervation = rezervations.ToList().Select(r=> (r, training.FirstOrDefault(t =>r.fk_Treniruote_treniruotes_nr==t.treniruotes_nr)))
                 .Select(r=>(r.Item1, r.Item2, trainer.FirstOrDefault(t =>r.Item2 != null ? r.Item2.fk_Trenerisid_Treneris == t.id_Treneris : false))) 
-                .Where(r => r.Item1.fk_Klientas_id_Naudotojas == userData.id_Naudotojas).ToList();
+                .Where(r => r.Item1.fk_Klientas_id_Naudotojas == userData.id_Naudotojas && r.Item2.savaites_diena == WeekD).ToList();
         }
     }
 }
