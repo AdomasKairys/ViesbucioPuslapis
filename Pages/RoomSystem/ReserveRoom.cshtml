@@ -13,8 +13,6 @@
         </div>
     </div>
 
-    <form method="post">
-        <!-- Pridėkite formą -->
         <div class="row align-content-center">
             <table class="table">
                 <thead>
@@ -36,11 +34,13 @@
             </table>
         </div>
 
-        <div class="row justify-content-end">
-            <div class="col-sm-2">
-                <button class="btn btn-primary" type="submit">Rezervuoti</button> <!-- Pridekite type="submit" -->
-            </div>
-            
-        </div>
-    </form> <!-- Uždarykite formą -->
+</div>
+
+<div class="row justify-content-end">
+    <div class="col-sm-2">
+        <button class="btn btn-primary" ID="ReservationBtn" OnClick="@Model.ReservationBtn_Click()" runat="server">Rezervuoti</button>
+    </div>
+    <div class="col-sm-2">
+        <a class="btn btn-success" asp-page="/ClientSystem/ReservationPayment">Mokėti</a> @* Reikia susieti su rezervacija // Maybe tik sitas mygtukas, kuris veliau redirectina i rezervuoti?*@
+    </div>
 </div>

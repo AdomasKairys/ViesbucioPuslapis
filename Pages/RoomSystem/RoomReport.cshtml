@@ -7,3 +7,46 @@
 <div class="text-center">
     <h1 class="display-4">Kambarių ataskaita</h1>
 </div>
+
+<br>
+
+<center>
+<h2>Populiariausi kambariai</h2>
+
+<br>
+
+<div class="row align-content-center">
+    <table class="table table-striped" style="text-align: center; vertical-align: middle;">
+        <tr>
+            <th>Rezervacijų kiekis</th>
+            <th>Kambario numeris</th>
+            <th>Nakties kaina</th>
+            <th>Vietų kiekis</th>
+        </tr>
+
+        @for (int i = 0; i < Model.MostPopularRooms.Count(); i++)
+        {
+            <tr>
+                <td>@Model.MostPopularCount[i]</td>
+                <td>@Model.MostPopularRooms[i].kambario_numeris</td>
+                <td>@Model.MostPopularRooms[i].nakties_kaina</td>
+                <td>@Model.MostPopularRooms[i].vietu_kiekis</td>
+            </tr>
+        }
+    </table>
+</div>
+
+<br>
+
+<div class="row align-content-center">
+    <h2>Vidutinis rezervacijos laikas</h2>
+    <h4>@Model.AverageDaysStayed</h4>
+</div>
+
+<br>
+
+<div class="row align-content-center">
+    <h2>Vidutinė rezervacijos kaina</h2>
+    <h4>@Model.AverageCostPerStay</h4>
+</div>
+</center>

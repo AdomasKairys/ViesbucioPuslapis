@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using ViesbucioPuslapis.Data;
 using ViesbucioPuslapis.Models;
@@ -49,6 +50,7 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
             TempData["Days"] = days.ToString();
             TempData["Cost"] =  reservationCost.ToString();
         }
+
         public string errorMessage = "";
 
         public void OnPost()
@@ -98,5 +100,31 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
         //    }
         //    //return Redirect(string.Format("ClientSystem/CheckoutPayment"));
         //}
+
+        public IActionResult ReservationBtn_Click()
+        {
+            //check if payment is done
+            bool paymentSuccess = true; //Changes depending on payment
+            int paymentStatus;
+
+            int tempID = 2; //tempID - clientid; need a method to fetch value
+
+            //Mokėjimo būsenos: 1- Apmokėta; 2-Neapmokėta; 3-Atšaukta
+            if (paymentSuccess)
+                paymentStatus = 1;
+            else
+                paymentStatus = 2;
+
+            //reservationid calculation
+            var lastReservation = reservations.Last();
+            int resId = lastReservation.id_Kambario_rezervacija + 1;
+
+            _db.Add(new Reservation { id_Kambario_rezervacija = resId, pradžia = startDate, pabaiga = endDate, kaina = Decimal.Parse(reservationCost.ToString()), //this is so scuffed lol
+                mokejimo_busena = paymentStatus, fk_Klientas_id_Naudotojas = tempID, fk_Kambarys_kambario_numeris = room.kambario_numeris});
+            _db.SaveChanges();
+
+            //Neveikia redirectas :( bet iraso i db
+            return Redirect("./OwnedReservation");
+        }
     }
 }

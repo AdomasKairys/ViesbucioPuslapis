@@ -4,6 +4,22 @@
     ViewData["Title"] = Model.roomType;
 }
 
+<script>
+    function updateEndDateMin() {
+        var startDateInput = document.getElementById('start');
+        var endDateInput = document.getElementById('end');
+
+        var selectedStartDate = new Date(startDateInput.value);
+        var nextDay = new Date(selectedStartDate);
+        nextDay.setDate(selectedStartDate.getDate() + 1);
+
+        // Format as YYYY-MM-DD
+        var formattedNextDay = nextDay.toISOString().split('T')[0];
+
+        endDateInput.min = formattedNextDay;
+    }
+</script>
+
 <div class="text-center">
     <h1 class="display-4">@Model.roomType</h1>
     <br>
@@ -12,7 +28,7 @@
         <div class="row align-content-start">
             <div class="col-sm-4">
                 <label for="start">Rezervacijos pradžia:</label>
-                <input id="start" name="start" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
+                <input id="start" name="start" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" onchange="updateEndDateMin()" required>
             </div>
 
             <div class="col-sm-4">
