@@ -35,7 +35,7 @@
                     <td>@sess.Item1</td>
                     <td>@sess.Item2</td>
                     <td>@sess.Item3</td>
-                    <td><a class="text-dark" href='@string.Format("./GymReservationView?Start={0}&End={1}",sess.Item1, sess.Item2)'>Rezervuoti</a></td>
+                    <td><a class="text-dark" href='@string.Format("./GymReservationView?Start={0}&End={1}&Weekd={2}",sess.Item1, sess.Item2, Model.WeekD)'>Rezervuoti</a></td>
                 </tr>
             }
         }

@@ -7,7 +7,7 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Trenerio vardas</th>
+            <th>Trenerio vardas, pavardė</th>
             <th>Vietu kiekis</th>
         </tr>
     </thead>
@@ -17,11 +17,13 @@
             foreach (var sess in Model.TrainingSess)
             {
                 <tr>
-                    <td>@sess.fk_Trenerisid_Treneris</td>
-                    <td>@sess.vietu_kiekis</td>
+                    <td>@sess.Item2.trenerio_vardas @sess.Item2.trenerio_pavarde</td>
+                    <td>@sess.Item1.vietu_kiekis</td>
                     <td>
                         <form id="rezerveTraining" method="post" role="form">
-                            <button class="btn btn-success" type="submit" name="TsessID" value='@sess.treniruotes_nr'>
+                            <button class="btn btn-success" type="submit" name="TsessID" value='@sess.Item1.treniruotes_nr' 
+                            @if (sess.Item1.vietu_kiekis == 0){ <text>disabled</text> } 
+                            >
                                 Rezervuoti
                             </button>
                         </form>
