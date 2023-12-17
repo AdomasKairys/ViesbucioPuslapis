@@ -27,7 +27,7 @@
                 <tbody>
                     <tr>
                         <td>@Model.RoomNr</td>
-                        <td>@Model.days</td>
+                        <td>@Model.room.vietu_kiekis</td>
                         <td>@Model.reservationCost</td>
                     </tr>
                 </tbody>
@@ -40,7 +40,9 @@
     <div class="col-sm-2">
         <button class="btn btn-primary" ID="ReservationBtn" OnClick="@Model.ReservationBtn_Click()" runat="server">Rezervuoti</button>
     </div>
+    <form method="post">
     <div class="col-sm-2">
-        <a class="btn btn-success" asp-page="/ClientSystem/ReservationPayment">Mokėti</a> @* Reikia susieti su rezervacija // Maybe tik sitas mygtukas, kuris veliau redirectina i rezervuoti?*@
+            <button class="btn btn-primary" type="submit">Moketi</button> @* Reikia susieti su rezervacija // Maybe tik sitas mygtukas, kuris veliau redirectina i rezervuoti?*@
     </div>
+    </form>
 </div>

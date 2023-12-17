@@ -73,34 +73,9 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
                 // Įvyksta klaida - galbūt nėra reikiamos informacijos 'TempData'
                 errorMessage = "Failed";
             }
+            
         }
-        //public void OnPost()
-        //{
-        //    //int client_id = HttpContext.Session.GetInt32("id") ?? 0;
-        //    //if (client_id < 1)
-        //    //{
-        //    //    Response.Redirect("/Login");
-        //    //    return;
-        //    //}
-        //    //if (!ModelState.IsValid)
-        //    //{
-        //    //    errorMessage = "Failed";
-        //    //    return;
-        //    //}
-
-
-        //   // string room = Request.Cookies["room"];
-        //    TempData["RoomNr"] = room.kambario_numeris;
-        //    TempData["Days"] = days.ToString();
-        //    TempData["Cost"] = reservationCost.ToString();
-        //    if (room.kambario_numeris != null)
-        //    {
-        //        Response.Redirect("/ClientSystem/CheckoutPayment");
-        //        return;
-        //    }
-        //    //return Redirect(string.Format("ClientSystem/CheckoutPayment"));
-        //}
-
+        
         public IActionResult ReservationBtn_Click()
         {
             //check if payment is done
@@ -123,6 +98,9 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
                 mokejimo_busena = paymentStatus, fk_Klientas_id_Naudotojas = tempID, fk_Kambarys_kambario_numeris = room.kambario_numeris});
             _db.SaveChanges();
 
+
+
+            OnPost();
             //Neveikia redirectas :( bet iraso i db
             return Redirect("./OwnedReservation");
         }
