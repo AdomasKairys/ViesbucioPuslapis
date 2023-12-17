@@ -62,8 +62,14 @@ namespace ViesbucioPuslapis.Pages
         }
         public IActionResult OnPostAddRezervation(int weekD)
         {
+            var userData = HttpContext.Session.GetComplexData<User>("user");
+            var clientId = _db.klientas.ToList().Where(c => c.id_Naudotojas == userData.id_Naudotojas).FirstOrDefault();
+            if(clientId == null)
+            {
+                return Redirect("/Index");
+            }
             TempData["SuccessRezervation"] = String.Format("Rezervacija sekmingai atlikta");
-            _db.Add(new GymReservation { fk_Klientas_id_Naudotojas = 2, fk_Treniruote_treniruotes_nr = SessionId, rezervacijos_laikas = DateTime.Now});
+            _db.Add(new GymReservation { fk_Klientas_id_Naudotojas = clientId.id_Naudotojas, fk_Treniruote_treniruotes_nr = SessionId, rezervacijos_laikas = DateTime.Now});
             _db.SaveChanges();
             return Redirect($"/GymSystem/GymTimeList?WeekD={weekD}");
         }

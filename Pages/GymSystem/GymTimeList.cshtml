@@ -14,11 +14,31 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Laikas nuo iki</th>
+            <th>Laikas nuo</th>
+            <th>Laikas iki</th>
             <th>Treneris</th>
         </tr>
     </thead>
     <tbody>
+        @if (Model.UserGymRezervation != null && Model.UserGymRezervation.Count > 0)
+        {
+            foreach (var sess in Model.UserGymRezervation)
+            {
+                <tr>
+                    <td>@sess.TrainingSession.treniruotes_pradzia</td>
+                    <td>@sess.TrainingSession.treniruotes_pabaiga</td>
+                    <td>@sess.Trainer.trenerio_vardas @sess.Trainer.trenerio_pavarde</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        }
     </tbody>
 </table>
 
@@ -39,16 +59,19 @@
             foreach (var sess in Model.TrainingSess)
             {
                 <tr>
-                    <td>@sess.Item1</td>
-                    <td>@sess.Item2</td>
-                    <td>@sess.Item3</td>
-                    <td><a class="text-dark" href='@string.Format("./GymReservationView?Start={0}&End={1}&Weekd={2}",sess.Item1, sess.Item2, Model.WeekD)'>Rezervuoti</a></td>
+                    <td>@sess.StartTime</td>
+                    <td>@sess.EndTime</td>
+                    <td>@sess.SessId</td>
+                    <td><a class="text-dark" href='@string.Format("./GymReservationView?Start={0}&End={1}&Weekd={2}",sess.StartTime, sess.EndTime, Model.WeekD)'>Rezervuoti</a></td>
                 </tr>
             }
         }
         else
         {
             <tr>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td></td>
             </tr>
         }

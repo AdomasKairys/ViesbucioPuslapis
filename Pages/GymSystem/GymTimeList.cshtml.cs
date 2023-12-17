@@ -10,7 +10,9 @@ namespace ViesbucioPuslapis.Pages
     {
         private readonly ILogger<ErrorModel> _logger;
         private readonly HotelDbContext _db;
-        public List<(TimeOnly, TimeOnly, int)> TrainingSess { get; set; }
+        public List<(TimeOnly StartTime, TimeOnly EndTime, int SessId)> TrainingSess { get; set; }
+        public List<(GymReservation Rezervation, TrainingSession TrainingSession, Trainer Trainer)> UserGymRezervation { get; set; }
+
         public int WeekD { get; set; }
         public GymTimeListModel(ILogger<ErrorModel> logger, HotelDbContext db)
         {
@@ -48,6 +50,14 @@ namespace ViesbucioPuslapis.Pages
             TrainingSess = training.Where(t=>t.savaites_diena==WeekD)
                 .GroupBy((sess) => new { sess.treniruotes_pradzia, sess.treniruotes_pabaiga }).AsEnumerable()
                 .Select(g => (g.Key.treniruotes_pradzia, g.Key.treniruotes_pabaiga, g.Sum(s => s.vietu_kiekis))).ToList();
+
+            var trainer = _db.treneris.ToList();
+            var userData = HttpContext.Session.GetComplexData<User>("user");
+            if (userData == null)
+                return;
+            UserGymRezervation = rezervations.ToList().Select(r=> (r, training.First(t =>r.fk_Treniruote_treniruotes_nr==t.treniruotes_nr)))
+                .Select(r=>(r.Item1, r.Item2, trainer.First(t =>r.Item2.fk_Trenerisid_Treneris == t.id_Treneris))) 
+                .Where(r => r.Item1.fk_Klientas_id_Naudotojas == userData.id_Naudotojas).ToList();
         }
     }
 }
