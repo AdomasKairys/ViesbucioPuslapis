@@ -23,29 +23,7 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
         {
             Clients = _db.klientas.ToList();
             Users = _db.naudotojas.ToList();
-            //string con = "server=localhost;user=adokai;Database=viesbucio_sistema;password=146025123";
-            //MySqlConnection mySqlConnection = new MySqlConnection(con);
-            //mySqlConnection.Open();
         }
-
-        /*public void OnGet()
-        {
-            // Gali būti imami klientų duomenys iš duomenų bazės arba kitos šaltinio
-            // Ir užpildomas sąrašas
-            Clients = GetClientsFromDatabase();
-        }
-
-        private List<Client> GetClientsFromDatabase()
-        {
-            // Čia galite įdėti kodą gauti klientų duomenis iš duomenų bazės
-            // Šiame pavyzdyje grąžinama kietoji duomenų struktūra
-            return new List<Client>
-            {
-                new Client { Id = 1, Name = "Jonas", Surname = "Jonaitis" },
-                new Client { Id = 2, Name = "Petras", Surname = "Petraitis" },
-                // Pridėkite daugiau klientų pagal savo poreikius
-            };
-        }*/
     }
 
 }
