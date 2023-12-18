@@ -69,7 +69,12 @@ namespace ViesbucioPuslapis.Pages
                     TempData["SuccessMessage"] = String.Format("Sėkmingai prisijungta! Prisijungimo pastas: {0}", Input.Email);
 
                     HttpContext.Session.SetComplexData("user", user);
+                    var admin = _db.administratorius.ToList().FirstOrDefault(a => a.id_Naudotojas == user.id_Naudotojas);
 
+                    if(admin != null)
+                    {
+                        HttpContext.Session.SetComplexData("admin", admin);
+                    }
 
                     return RedirectToPage("/Index");
                 }

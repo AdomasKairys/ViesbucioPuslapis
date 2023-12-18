@@ -50,11 +50,11 @@ namespace ViesbucioPuslapis.Pages
             {
                 ParkingReservation parkingReservation;
 
-                parkingReservation = _db.stovejimo_vietos_rezervacija.Where(res => res.fk_Kambario_rezervacijaid_Kambario_rezervacija == SelectedReservationId).First();
-                if(parkingReservation != null)
-                {
-                    return Redirect("/");
-                }
+                //parkingReservation = _db.stovejimo_vietos_rezervacija.Where(res => res.fk_Kambario_rezervacijaid_Kambario_rezervacija == SelectedReservationId).First();
+                //if(parkingReservation != null)
+                //{
+                //    return Redirect("/");
+                //}
 
                 parkingReservation= new ParkingReservation();
                 ParkingPlace parking = _db.stovejimo_vieta.Where(res => res.vietos_id == SelectedPlaceId).FirstOrDefault();
@@ -78,11 +78,11 @@ namespace ViesbucioPuslapis.Pages
             {
                 ParkingReservation parkingReservation;
 
-                parkingReservation = _db.stovejimo_vietos_rezervacija.Where(res => res.fk_Kambario_rezervacijaid_Kambario_rezervacija == SelectedReservationId).First();
-                if (parkingReservation != null)
-                {
-                    return Redirect("/");
-                }
+                //parkingReservation = _db.stovejimo_vietos_rezervacija.Where(res => res.fk_Kambario_rezervacijaid_Kambario_rezervacija == SelectedReservationId).First();
+                //if (parkingReservation != null)
+                //{
+                //    return Redirect("/");
+                //}
 
                 parkingReservation = new ParkingReservation();
                 ParkingPlace parking = _db.stovejimo_vieta.Where(res => res.vietos_id == SelectedPlaceId).FirstOrDefault();
