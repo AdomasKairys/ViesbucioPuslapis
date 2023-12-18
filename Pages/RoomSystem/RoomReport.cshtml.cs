@@ -58,13 +58,12 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
 
             }
             AverageDaysStayed /= Reservations.Count;
+            AverageDaysStayed = Math.Round(AverageDaysStayed, 2);
 
             //Average money spent per stay
             AverageCostPerStay = Reservations
                 .Select(r => r.kaina).Average();
-
-
-            //Most popular room type
+            AverageCostPerStay = Math.Round(AverageCostPerStay, 2);
         }
     }
 }

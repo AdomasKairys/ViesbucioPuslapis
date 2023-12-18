@@ -19,14 +19,18 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
 
         public void OnGet()
         {
-            int id = 2; //temp
-            reservations = _db.kambario_rezervacija.Where(res => res.fk_Klientas_id_Naudotojas == id).ToList();
+            //int userid = 2;
+            var user = HttpContext.Session.GetComplexData<User>("user");
+            int userid = user.id_Naudotojas;
+            reservations = _db.kambario_rezervacija.Where(res => res.fk_Klientas_id_Naudotojas == userid).ToList();
         }
 
         public IActionResult OnPost(int resid)
         {
-            int id = 2; //temp
-            reservations = _db.kambario_rezervacija.Where(res => res.fk_Klientas_id_Naudotojas == id).ToList(); //rewrote because reservations is null in here for some reason
+            //int userid = 2;
+            var user = HttpContext.Session.GetComplexData<User>("user");
+            int userid = user.id_Naudotojas;
+            reservations = _db.kambario_rezervacija.Where(res => res.fk_Klientas_id_Naudotojas == userid).ToList();
 
             Reservation reservation = reservations.First(res => res.id_Kambario_rezervacija == resid);
 

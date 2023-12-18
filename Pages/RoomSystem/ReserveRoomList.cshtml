@@ -4,17 +4,23 @@
     ViewData["Title"] = "Kambarių sąrašas";
 }
 
+<div class="row align-content-start">
+    <div class="col-md-2">
+        <a class="btn btn-danger" asp-page="/RoomSystem/RoomType" asp-route-roomid="@Model.roomId" role="button">Grįžti</a>
+    </div>
+</div>
+
 <div class="text-center">
     <h1 class="display-4">Pasirinkti "@Model.roomType" tipo kambarį</h1>
-
+    <br>
     @if (Model.rooms != null && Model.rooms.Count > 0)
     {
         <div class="row align-content-center">
-            <table class="table">
+            <table class="table table-borderless">
                 <thead>
                     <tr>
                         <th>Kambario numeris</th>
-                        <th>Nakties kaina</th>
+                        <th>Nakties kaina </th>
                         <th>Vietų kiekis</th>
                         <th></th>
                     </tr>
@@ -25,7 +31,7 @@
                     {
                         <tr>
                             <td>@room.kambario_numeris</td>
-                            <td>@room.nakties_kaina</td>
+                            <td>@room.nakties_kaina €</td>
                             <td>@room.vietu_kiekis</td>
                             <td>
                                 <form id="reserveroom" method="post" role="form">
@@ -47,4 +53,4 @@
         <p>Nėra šio tipo laisvų kambarių pasirinktu laikotarpiu.</p>
     }
 
-    <a class="text-dark" asp-area="" asp-page="/RoomSystem/RoomType" asp-route-roomid="@Model.roomId">Grįžti</a>
+

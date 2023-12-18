@@ -9,7 +9,7 @@ namespace ViesbucioPuslapis.Models
         public DateTime pradžia { get; set; }
         public DateTime pabaiga { get; set; }
         public decimal kaina { get; set; }
-        public int mokejimo_busena { get; set; } //foreign key
+        public int mokejimo_busena { get; set; }
         public int fk_Klientas_id_Naudotojas { get; set; }
         public string fk_Kambarys_kambario_numeris { get; set; }
     }

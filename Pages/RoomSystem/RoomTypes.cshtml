@@ -6,14 +6,17 @@
 
 <div class="text-center" id="roomtype">
     <h1 class="display-4">Kambarių tipai</h1>
-    
+    <br>
     @if (Model.roomTypes != null && Model.roomTypes.Count > 0)
     {
+        <table class="table table-hover table-borderless">
         @foreach (var type in Model.roomTypes)
         {
-            <a class="text-dark" style="font-size: 20px" asp-area="" asp-page="/RoomSystem/RoomType" asp-route-roomid="@type.id_Kambario_tipas">@type.name</a>
-            <br>
+            <tr>
+                    <td><a class="text-dark" style="font-size: 30px; text-decoration:none" asp-area="" asp-page="/RoomSystem/RoomType" asp-route-roomid="@type.id_Kambario_tipas">@type.name</a></td>
+            </tr>
         }
+        </table>
     }
     else
     {

@@ -29,7 +29,7 @@
             <tr>
                 <td>@Model.MostPopularCount[i]</td>
                 <td>@Model.MostPopularRooms[i].kambario_numeris</td>
-                <td>@Model.MostPopularRooms[i].nakties_kaina</td>
+                 <td>@Model.MostPopularRooms[i].nakties_kaina €</td>
                 <td>@Model.MostPopularRooms[i].vietu_kiekis</td>
             </tr>
         }
@@ -40,13 +40,13 @@
 
 <div class="row align-content-center">
     <h2>Vidutinis rezervacijos laikas</h2>
-    <h4>@Model.AverageDaysStayed</h4>
+    <h4>@Model.AverageDaysStayed dienos</h4>
 </div>
 
 <br>
 
 <div class="row align-content-center">
     <h2>Vidutinė rezervacijos kaina</h2>
-    <h4>@Model.AverageCostPerStay</h4>
+    <h4>@Model.AverageCostPerStay €</h4>
 </div>
 </center>

@@ -15,17 +15,19 @@
             @TempData["SuccessMessage"]
         </div>
     }
-
+    <br>
     <div class="form-group">
         <label for="inputEmail">El. paštas</label>
         <input asp-for="Input.Email" type="email" class="form-control" id="inputEmail" required>
         <span asp-validation-for="Input.Email" class="text-danger"></span>
     </div>
+    <br>
     <div class="form-group">
         <label for="inputPassword">Slaptažodis</label>
         <input asp-for="Input.Password" type="password" class="form-control" id="inputPassword" required>
         <span asp-validation-for="Input.Password" class="text-danger"></span>
     </div>
+    <br>
     <button type="submit" class="btn btn-primary">Prisijungti</button>
     <span asp-validation-summary="All" class="text-danger"></span>
 </form>

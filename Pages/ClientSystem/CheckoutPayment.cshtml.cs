@@ -3,6 +3,9 @@ using System.Text;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Text.Json.Nodes;
+using ViesbucioPuslapis.Data;
+using Microsoft.Extensions.Logging;
+using ViesbucioPuslapis.Models;
 
 namespace ViesbucioPuslapis.Pages.ClientSystem
 {
@@ -16,13 +19,25 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
         public string RoomNr { get; set; } = "";
         public string Days { get; set; } = "";
         public string Cost { get; set; } = "";
+        public DateTime Startdate { get; set; }
+        public DateTime Enddate { get; set; }
 
 
-        public CheckoutPaymentModel(IConfiguration configuration) 
+        public double reservationCost;
+        public Room room { get; set; }
+        public List<Reservation> reservations { get; set; }
+
+
+        private readonly ILogger<ErrorModel> _logger;
+        private readonly HotelDbContext _db;
+
+        public CheckoutPaymentModel(ILogger<ErrorModel> logger, HotelDbContext db, IConfiguration configuration) 
         {
             PaypalClientId = configuration["PaypalSettings:ClientId"]!;
             PaypalSecret = configuration["PaypalSettings:Secret"]!;
             PaypalUrl = configuration["PaypalSettings:Url"]!;
+            _logger = logger;
+            _db = db;
         }
 
 
@@ -32,14 +47,72 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
             RoomNr = TempData["RoomNr"]?.ToString() ?? "";
             Days = TempData["Days"]?.ToString() ?? "";
             Cost = TempData["Cost"]?.ToString() ?? "";
+            string start = TempData["start"]?.ToString() ?? "";
+            string end = TempData["end"]?.ToString() ?? "";
 
             TempData.Keep();
 
-            if(RoomNr == "" ||  Days == "" || Cost == "")
+            if (RoomNr == "" ||  Days == "" || Cost == "")
             {
                 Response.Redirect("/");
                 return;
             }
+        }
+
+        public void PostReservationToDb(int status) {
+            string start = TempData["start"]?.ToString() ?? "";
+            string end = TempData["end"]?.ToString() ?? "";
+            RoomNr = TempData["RoomNr"]?.ToString() ?? "";
+
+            Startdate = DateTime.Parse(start);
+            Enddate = DateTime.Parse(end);
+
+            TimeSpan timeSpent = Enddate - Startdate;
+            var days = timeSpent.TotalDays;
+
+            reservations = _db.kambario_rezervacija.ToList();
+            room = _db.kambarys.First(r => r.kambario_numeris == RoomNr);
+
+            reservationCost = days * room.nakties_kaina;
+
+            //int userid = 2; //tempID
+            var user = HttpContext.Session.GetComplexData<User>("user");
+            int userid = user.id_Naudotojas;
+
+            //reservationid calculation
+            var lastReservation = reservations.Last();
+            int resId = lastReservation.id_Kambario_rezervacija + 1;
+            TempData["resId"] = resId;
+
+
+            _db.Add(new Reservation
+            {
+                id_Kambario_rezervacija = resId,
+                pradžia = Startdate,
+                pabaiga = Enddate,
+                kaina = Decimal.Parse(reservationCost.ToString()),
+                mokejimo_busena = status,
+                fk_Klientas_id_Naudotojas = userid,
+                fk_Kambarys_kambario_numeris = room.kambario_numeris
+            });
+            _db.SaveChanges();
+        }
+
+        public void UpdateReservation(int status)
+        {
+            int userid = 2; //temp
+            int resId = (int)TempData["resId"];
+
+            reservations = _db.kambario_rezervacija.Where(res => res.fk_Klientas_id_Naudotojas == userid).ToList();
+
+            Reservation reservation = reservations.First(res => res.id_Kambario_rezervacija == resId);
+
+            if (reservation != null)
+            {
+                reservation.mokejimo_busena = status;
+                _db.SaveChanges();
+            }
+
         }
 
         public JsonResult OnPostCreateOrder()
@@ -101,8 +174,8 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
                     if(jsonResponse != null)
                     {
                         orderId = jsonResponse["id"]?.ToString() ?? "";
-
                         // save order in the database
+                        PostReservationToDb(2);
                     }
                 }
             }
@@ -149,9 +222,10 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
                         if(paypalOrderStatus == "COMPLETED")
                         {
                             // clear TempData
-                            TempData.Clear();
+                            //TempData.Clear();
 
                             // update payment status in the database
+                            UpdateReservation(1);
 
                             return new JsonResult("success");
                             
@@ -160,7 +234,6 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
                     }
                 }
             }
-
             return new JsonResult("");
         }
 

@@ -4,17 +4,18 @@
     ViewData["Title"] = "Kambario rezervacija";
 }
 
+<div class="row align-content-start">
+    <div class="col-md-2">
+        <a class="btn btn-danger" href="/Index" role="button">Atšaukti</a>
+    </div>
+</div>
+
 <div class="text-center">
     <h1 class="display-4">Rezervuoti @Model.RoomNr kambarį</h1>
-
-    <div class="row justify-content-start">
-        <div class="col-sm-2">
-            <a class="btn btn-danger" href="/Index" role="button">Atšaukti</a>
-        </div>
-    </div>
+    <br>
 
         <div class="row align-content-center">
-            <table class="table">
+            <table class="table table-borderless">
                 <thead>
                     <tr>
                         <th>Kambario numeris</th>
@@ -40,9 +41,4 @@
     <div class="col-sm-2">
         <button class="btn btn-primary" ID="ReservationBtn" OnClick="@Model.ReservationBtn_Click()" runat="server">Rezervuoti</button>
     </div>
-    <form method="post">
-    <div class="col-sm-2">
-            <button class="btn btn-primary" type="submit">Moketi</button> @* Reikia susieti su rezervacija // Maybe tik sitas mygtukas, kuris veliau redirectina i rezervuoti?*@
-    </div>
-    </form>
 </div>

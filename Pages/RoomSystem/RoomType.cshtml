@@ -20,29 +20,40 @@
     }
 </script>
 
+<div class="row align-content-start">
+    <div class="col-md-2">
+        <a class="btn btn-danger" asp-page="/RoomSystem/RoomTypes" role="button">Grįžti</a>
+    </div>
+</div>
+
 <div class="text-center">
     <h1 class="display-4">@Model.roomType</h1>
     <br>
 
     <form method="POST">
-        <div class="row align-content-start">
-            <div class="col-sm-4">
+        <div class="align-content-center">
+            <div>
                 <label for="start">Rezervacijos pradžia:</label>
                 <input id="start" name="start" type="date" min="@DateTime.Now.ToString("yyyy-MM-dd")" onchange="updateEndDateMin()" required>
             </div>
 
-            <div class="col-sm-4">
+            <br>
+
+            <div>
                 <label for="end">Revervacijos pabaiga:</label>
                 <input type="date" id="end" name="end" min="@DateTime.Now.ToString("yyyy-MM-dd")" required>
             </div>
 
-            <input type="hidden" id="roomid" name="roomid" value="@Model.roomId">
+            <br>
 
-            <div class="col-sm-4">
+            <input type="hidden" id="roomid" name="roomid" value="@Model.roomId">
+            <div>
                 <input class="btn btn-success" type="submit" value="Rodyti laisvus kambarius">
             </div>
+
+            <br>
         </div>
     </form>
     <br>
-    <a class="text-dark" asp-area="" asp-page="/RoomSystem/RoomTypes">Grįžti</a>
+    
 </div>
