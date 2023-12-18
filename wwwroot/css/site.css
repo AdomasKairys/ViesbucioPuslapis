@@ -1,4 +1,4 @@
-html {
+/*html {
   font-size: 14px;
 }
 
@@ -15,4 +15,70 @@ html {
 
 body {
   margin-bottom: 60px;
+}*/
+/* Set a more readable default font size with a nice fallback */
+html {
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Adjust font size for larger screens (768 pixels or more) */
+@media (min-width: 768px) {
+    html {
+        font-size: 18px;
+    }
+}
+
+/* Improve readability and add some styling to the body */
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem; /* Use a relative font size for better scalability */
+    line-height: 1.6; /* Set a comfortable line height */
+    color: #333; /* Set a default text color */
+    background-color: #f8f8f8; /* Set a light background color */
+}
+
+/* Add some spacing to the bottom of the body */
+body {
+    margin-bottom: 60px;
+}
+
+/* Add some styles to make links more noticeable */
+a {
+    color: #007bff; /* Set link color to a common blue */
+    text-decoration: none;
+}
+
+    a:hover {
+        text-decoration: underline; /* Underline links on hover for visual feedback */
+    }
+
+/* Style headings for better hierarchy */
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+/* Add some padding to the top and bottom of headings */
+h1, h2 {
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+}
+
+h3, h4 {
+    padding-top: 0.75rem;
+    padding-bottom: 0.25rem;
+}
+
+h5, h6 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+}
+
+/* Set a max-width for better readability on large screens */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }

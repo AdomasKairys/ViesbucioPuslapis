@@ -28,6 +28,12 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
 
         public void OnGet(string roomnr, string start, string end)
         {
+             var user = HttpContext.Session.GetComplexData<User>("user");
+
+            if(user == null)
+            {
+                return;
+            }
             if (start == null || end == null)
                 return;
 

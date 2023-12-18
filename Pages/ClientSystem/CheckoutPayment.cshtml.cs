@@ -88,7 +88,7 @@ namespace ViesbucioPuslapis.Pages.ClientSystem
             _db.Add(new Reservation
             {
                 id_Kambario_rezervacija = resId,
-                pradþia = Startdate,
+                pradžia = Startdate,
                 pabaiga = Enddate,
                 kaina = Decimal.Parse(reservationCost.ToString()),
                 mokejimo_busena = status,

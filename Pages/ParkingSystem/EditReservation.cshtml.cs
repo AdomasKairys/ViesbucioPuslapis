@@ -33,7 +33,7 @@ namespace ViesbucioPuslapis.Pages
             int userid = user.id_Naudotojas;
 
             ParkingReservation reservation = _db.stovejimo_vietos_rezervacija.Where(res => res.id_Stovejimo_vietos_rezervacija == resid).FirstOrDefault();
-            startDate = reservation.stovejimo_vietos_pradþia;
+            startDate = reservation.stovejimo_vietos_pradžia;
             endDate = reservation.stovejimo_vietos_pabaiga;
 
             ViewData["DefaultStartDate"] = startDate;
@@ -44,10 +44,10 @@ namespace ViesbucioPuslapis.Pages
         {
             ParkingReservation reservation = _db.stovejimo_vietos_rezervacija.Where(res => res.id_Stovejimo_vietos_rezervacija == resid).FirstOrDefault();
             ParkingPlace place = _db.stovejimo_vieta.Where(res => res.vietos_id == reservation.fk_Stovejimo_vietavietos_id).FirstOrDefault();
-            reservation.stovejimo_vietos_pradþia = startDate;
+            reservation.stovejimo_vietos_pradžia = startDate;
             reservation.stovejimo_vietos_pabaiga = endDate;
-            place.uþimta_nuo = startDate;
-            place.uþimta_iki = endDate;
+            place.užimta_nuo = startDate;
+            place.užimta_iki = endDate;
             _db.Update(reservation);
             _db.Update(place);
             _db.SaveChanges();

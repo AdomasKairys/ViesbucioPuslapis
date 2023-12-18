@@ -18,9 +18,13 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
         }
 
         public void OnGet()
-        {
+        {   
             //int userid = 2;
             var user = HttpContext.Session.GetComplexData<User>("user");
+            if (user == null)
+            {
+                return;
+            }
             int userid = user.id_Naudotojas;
             reservations = _db.kambario_rezervacija.Where(res => res.fk_Klientas_id_Naudotojas == userid).ToList();
         }
