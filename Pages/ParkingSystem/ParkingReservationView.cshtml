@@ -1,11 +1,73 @@
 ﻿@page
+@using ViesbucioPuslapis.Models
 @model ParkingReservationViewModel
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Sporto salė";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Jūs neturite stovėjimo vietos rezervacijos!</h1>
-    <a class="text-dark" asp-area="" asp-page="./ParkingReservation">Rezervuoti vietą</a>
-    <a class="text-dark" asp-area="" asp-page="./CancelParkingReservation">Atšaukti rezervaciją</a>
-</div>
+@if (HttpContextAccessor.HttpContext.Session.GetString("user") == null)
+{
+    <div class="text-center">
+        <h1 class="display-4">Jūs nesate prisijungęs!</h1>
+    </div>
+}
+@if (Model.parkingReservations != null && Model.parkingReservations.Count > 0)
+{
+    <div class="row align-content-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Vietos numeris</th>
+                    <th>Pradžia</th>
+                    <th>Pabaiga</th>
+                    <th>Aukštas</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @for (int i = 0; i < Model.parkingReservations.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.parkingReservations[i].fk_Stovejimo_vietavietos_id</td>
+                        <td>@Model.parkingReservations[i].stovejimo_vietos_pradžia.ToString("yyyy-MM-dd")</td>
+                        <td>@Model.parkingReservations[i].stovejimo_vietos_pabaiga.ToString("yyyy-MM-dd")</td>
+                        <td>@Model.places[i].aukstas_id</td>
+                        <td>
+                            <form id="deleteReservation" method="post" role="form">
+                                <input type="hidden" name="formId" value="deleteReservation" />
+                                <button class="btn btn-danger" type="submit" name="resid" value='@Model.parkingReservations[i].id_Stovejimo_vietos_rezervacija'>
+                                    Šalinti šią rezervaciją
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form id="editReservation" method="post" role="form">
+                                <input type="hidden" name="formId" value="editReservation" />
+                                <button class="btn btn-info" type="submit" name="resid" value='@Model.parkingReservations[i].id_Stovejimo_vietos_rezervacija'>
+                                    Redaguoti šią rezervaciją
+                                </button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <div class="text-center">
+            <a class="text-dark" asp-area="" asp-page="./ParkingReservation">Rezervuoti vietą</a>
+        </div>
+    </div>
+}
+@if ((Model.parkingReservations == null || Model.parkingReservations.Count == 0) && HttpContextAccessor.HttpContext.Session.GetString("user") != null)
+{
+    <div class="text-center">
+        <h1 class="display-4">Jūs neturite stovėjimo vietos rezervacijos!</h1>
+        <a class="text-dark" asp-area="" asp-page="./ParkingReservation">Rezervuoti vietą</a>
+        @*<a class="text-dark" asp-area="" asp-page="./CancelParkingReservation">Atšaukti rezervaciją</a>*@
+    </div>
+}
+

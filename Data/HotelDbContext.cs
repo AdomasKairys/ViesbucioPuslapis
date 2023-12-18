@@ -19,5 +19,8 @@ namespace ViesbucioPuslapis.Data
 
         public DbSet<Client> klientas { get; set; }
         public DbSet<User> naudotojas { get; set; }
+
+        public DbSet<ParkingPlace> stovejimo_vieta { get; set; }
+        public DbSet<ParkingReservation> stovejimo_vietos_rezervacija { get; set; }
     }
 }

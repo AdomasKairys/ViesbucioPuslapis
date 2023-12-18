@@ -1,0 +1,21 @@
+﻿@page
+@model ViesbucioPuslapis.Pages.EditReservationModel
+@{
+    ViewData["Title"] = "Stovėjimo vietos rezervacijos redagavimas";
+}
+<a class="text-dark" asp-area="" asp-page="./ParkingReservationView">Grįžti atgal</a>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="startDate">Pradžia</label>
+        <input type="date" class="form-control" name="startDate" value="@ViewData["DefaultStartDate"]">
+    </div>
+    <div class="form-group">
+        <label asp-for="endDate">Pabaiga</label>
+        <input type="date" class="form-control" name="endDate" value="@ViewData["DefaultEndDate"]">
+    </div>
+    <br />
+
+
+    <button type="submit" class="btn btn-primary">Atnaujinti</button>
+
+</form>

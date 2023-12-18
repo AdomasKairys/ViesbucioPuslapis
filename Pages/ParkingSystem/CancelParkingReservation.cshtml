@@ -6,6 +6,11 @@
 
 <div class="text-center">
     <h1 class="display-4">Ar tikrai norite pašalinti rezervaciją?</h1>
-    <a class="text-dark" asp-area="" asp-page="/Index">Taip, pašalinti</a> <br>
+    <form id="deleteReservation" method="post" role="form">
+        <button class="btn btn-danger" type="submit" name="resid">
+            Taip, pašalinti
+        </button>
+    </form>
+    <br>
     <a class="text-dark" asp-area="" asp-page="/ParkingSystem/ParkingReservationView">Grįžti</a>
 </div>

@@ -6,16 +6,32 @@
 <a class="text-dark" asp-area="" asp-page="./ParkingReservationView">Grįžti atgal</a>
 <form method="post">
     <div class="form-group">
-        <label for="start">Pradžia</label>
-        <input type="date" class="form-control" required>
+        <label asp-for="startDate">Pradžia</label>
+        <input type="date" class="form-control" name="startDate">
     </div>
     <div class="form-group">
-        <label for="end">Pabaiga</label>
-        <input type="date" class="form-control" required>
+        <label asp-for="endDate">Pabaiga</label>
+        <input type="date" class="form-control" name="endDate">
     </div>
     <br />
 
-    <button type="submit" class="btn btn-primary">Išsaugoti</button>
+    <label for="reservationDropdown">Kambario rezervacijos numeris:</label>
+        <select id="reservationDropdown" asp-for="SelectedReservationId">
+            @foreach (var reservation in Model.reservations)
+            {
+                <option value="@reservation.id_Kambario_rezervacija">@reservation.id_Kambario_rezervacija</option>
+            }
+        </select>
+    <br />
+    <label for="placeDropdown">Stovėjimo vietos numeris:</label>
+        <select id="placeDropdown" asp-for="SelectedPlaceId">
+            @foreach (var reservation in Model.places)
+            {
+                <option value="@reservation.vietos_id">@reservation.vietos_id</option>
+            }
+        </select>
+    <br />
+    <button type="submit" class="btn btn-primary" name="type" value="1">Pasirinkti</button>
+    <button type="submit" class="btn btn-primary" name="type" value="2">Parinkti automatiškai</button>
+
 </form>
-<br />
-<button type="submit" class="btn btn-primary">Parinkti automatiškai</button>

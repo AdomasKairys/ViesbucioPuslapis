@@ -49,7 +49,7 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
 
             //Average days stayed
             var daysstayed = Reservations
-                .Select(r => r.pabaiga - r.pradžia).ToList();
+                .Select(r => r.pabaiga - r.pradþia).ToList();
 
             AverageDaysStayed = 0;
             foreach(var amount in daysstayed)

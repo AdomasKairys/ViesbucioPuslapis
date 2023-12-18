@@ -42,7 +42,7 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
             roomType = temp.name;
             roomId = temp.id_Kambario_tipas;
 
-            reservations = _db.kambario_rezervacija.Where(res => res.pradžia >= startDate && res.pabaiga <= endDate).ToList();
+            reservations = _db.kambario_rezervacija.Where(res => res.pradþia >= startDate && res.pabaiga <= endDate).ToList();
             rooms = _db.kambarys.Where(room => room.tipas == roomId).ToList();
 
             foreach (var room in rooms.ToList())
