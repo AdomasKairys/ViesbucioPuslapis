@@ -4,28 +4,26 @@
     ViewData["Title"] = "Sporto salė";
 }
 
-<div class="text-center">
-    <h1 class="display-4">SPORTO SALĖS PRADINIS PUSLAPIS</h1>
-    <br />
-    <div class="d-flex flex-row justify-content-around">
-        @for(int i = 1; i <= 7; i++)
-        {
-            var culture = new System.Globalization.CultureInfo("lt-LT");
-            var dayName = culture.DateTimeFormat.DayNames[i != 7 ? i : 0];
-            var dayToday = (int)DateTime.Now.DayOfWeek;
-            <div class="p-2 card ">
-                <div class="card-body">
-                    <h5 class="card-title text-capitalize">@dayName</h5>
-                </div>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item small text-left">Laisvų vietų skaičius:<br> @Model.FreeSlots[i-1]</li>
-                    <li class="list-group-item small text-left">Treniruočių skaičius:<br> @Model.SessionAmm[i-1]</li>
-                    <li class="list-group-item small text-left">Rezervacijų skaičius:<br> @Model.RezervationCount[i-1]</li>
-                </ul>
-                <div class="card-body">
-                    <a class="text-dark btn btn-info @string.Format("{0}", (dayToday == 0 ? 7 : dayToday) > i ? "disabled":"")" role="button" aria-disabled="@string.Format("{0}", dayToday > i ? "true":"false")" asp-area="" asp-page="./GymTimeList" asp-route-Weekd="@i">Pažiūrėti</a>
-                </div>
+<h1 class="display-4">@ViewData["Title"]</h1>
+<br />
+<div class="d-flex flex-row justify-content-around">
+    @for(int i = 1; i <= 7; i++)
+    {
+        var culture = new System.Globalization.CultureInfo("lt-LT");
+        var dayName = culture.DateTimeFormat.DayNames[i != 7 ? i : 0];
+        var dayToday = (int)DateTime.Now.DayOfWeek;
+        <div class="p-2 card ">
+            <div class="card-body">
+                <h5 class="card-title text-capitalize">@dayName</h5>
             </div>
-        }
-    </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item small text-left">Laisvų vietų skaičius:<br> @Model.FreeSlots[i-1]</li>
+                <li class="list-group-item small text-left">Treniruočių skaičius:<br> @Model.SessionAmm[i-1]</li>
+                <li class="list-group-item small text-left">Rezervacijų skaičius:<br> @Model.RezervationCount[i-1]</li>
+            </ul>
+            <div class="card-body">
+                <a class="text-dark btn btn-info @string.Format("{0}", (dayToday == 0 ? 7 : dayToday) > i ? "disabled":"")" role="button" aria-disabled="@string.Format("{0}", dayToday > i ? "true":"false")" asp-area="" asp-page="./GymTimeList" asp-route-Weekd="@i">Pažiūrėti</a>
+            </div>
+        </div>
+    }
 </div>
