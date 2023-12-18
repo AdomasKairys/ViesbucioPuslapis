@@ -1,5 +1,12 @@
 ﻿@page
 @model ViesbucioPuslapis.Pages.RoomSystem.OwnedReservationModel
+@inject IHttpContextAccessor HttpContextAccessor
+@if (HttpContextAccessor.HttpContext.Session.GetString("user") == null)
+{
+    <div class="text-center">
+        <h1 class="display-4">Jūs nesate prisijungęs!</h1>
+    </div>
+}
 @{
     ViewData["Title"] = "Jūsų rezervacija";
 }
@@ -10,6 +17,7 @@
         @TempData["RoomReservationDeleteSuccess"]
     </div>
 }
+
 
 <div class="text-center">
     <h1 class="display-4">Jūsų rezervacija</h1>

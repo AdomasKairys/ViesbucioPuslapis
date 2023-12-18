@@ -106,36 +106,36 @@ namespace ViesbucioPuslapis.Pages
                 _db.Update(parking);
                 _db.SaveChanges();
 
-                /*for(int i = 0; i < 300; i++)
-                {
-                    ParkingPlace parking = new ParkingPlace();
-                    if(i < 100)
-                    {
-                        parking.aukstas_id = 1;
-                        parking.vietos_užimtumas = false;
-                        parking.užimta_iki = DateTime.MinValue;
-                        parking.užimta_nuo = DateTime.MinValue;
-                        parking.vietos_id = (i + 100).ToString();
-                    }
-                    else if(i < 200)
-                    {
-                        parking.aukstas_id = 2;
-                        parking.vietos_užimtumas = false;
-                        parking.užimta_iki = DateTime.MinValue;
-                        parking.užimta_nuo = DateTime.MinValue;
-                        parking.vietos_id = (i + 100).ToString();
-                    }
-                    else
-                    {
-                        parking.aukstas_id = 3;
-                        parking.vietos_užimtumas = false;
-                        parking.užimta_iki = DateTime.MinValue;
-                        parking.užimta_nuo = DateTime.MinValue;
-                        parking.vietos_id = (i + 100).ToString();
-                    }
-                    _db.Add(parking);
-                    _db.SaveChanges();
-                }*/
+                //for(int i = 0; i < 300; i++)
+                //{
+                //    ParkingPlace parking = new ParkingPlace();
+                //    if(i < 100)
+                //    {
+                //        parking.aukstas_id = 1;
+                //        parking.vietos_užimtumas = false;
+                //        parking.užimta_iki = DateTime.MinValue;
+                //        parking.užimta_nuo = DateTime.MinValue;
+                //        parking.vietos_id = (i + 100).ToString();
+                //    }
+                //    else if(i < 200)
+                //    {
+                //        parking.aukstas_id = 2;
+                //        parking.vietos_užimtumas = false;
+                //        parking.užimta_iki = DateTime.MinValue;
+                //        parking.užimta_nuo = DateTime.MinValue;
+                //        parking.vietos_id = (i + 100).ToString();
+                //    }
+                //    else
+                //    {
+                //        parking.aukstas_id = 3;
+                //        parking.vietos_užimtumas = false;
+                //        parking.užimta_iki = DateTime.MinValue;
+                //        parking.užimta_nuo = DateTime.MinValue;
+                //        parking.vietos_id = (i + 100).ToString();
+                //    }
+                //    _db.Add(parking);
+                //    _db.SaveChanges();
+                //}
             }
             return Redirect("./ParkingReservationView");
         }
