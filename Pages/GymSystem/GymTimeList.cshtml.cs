@@ -11,7 +11,7 @@ namespace ViesbucioPuslapis.Pages
         private readonly ILogger<ErrorModel> _logger;
         private readonly HotelDbContext _db;
         public List<(TimeOnly StartTime, TimeOnly EndTime, int SessId)> TrainingSess { get; set; }
-        public List<(GymReservation Rezervation, TrainingSession TrainingSession, Trainer Trainer)> UserGymRezervation { get; set; }
+        public List<(GymReservation Rezervation, TrainingSession? TrainingSession, Trainer? Trainer)> UserGymRezervation { get; set; }
 
         public int WeekD { get; set; }
         public GymTimeListModel(ILogger<ErrorModel> logger, HotelDbContext db)
@@ -43,7 +43,7 @@ namespace ViesbucioPuslapis.Pages
                 vietu_kiekis=t.vietu_kiekis - rezervations.ToList().Where(r => 
                     (r.fk_Treniruote_treniruotes_nr == t.treniruotes_nr) && (myCal.GetWeekOfYear(r.rezervacijos_laikas, myCWR, myFirstDOW).CompareTo(myCal.GetWeekOfYear(DateTime.Now, myCWR, myFirstDOW)) == 0)
                     ).Count(),
-            }).ToList();
+            }).Where(t => t.treniruotes_pradzia > TimeOnly.FromDateTime(DateTime.Now)).ToList();
 
 
 
@@ -55,9 +55,9 @@ namespace ViesbucioPuslapis.Pages
             var userData = HttpContext.Session.GetComplexData<User>("user");
             if (userData == null)
                 return;
-            UserGymRezervation = rezervations.ToList().Select(r=> (r, training.First(t =>r.fk_Treniruote_treniruotes_nr==t.treniruotes_nr)))
-                .Select(r=>(r.Item1, r.Item2, trainer.First(t =>r.Item2.fk_Trenerisid_Treneris == t.id_Treneris))) 
-                .Where(r => r.Item1.fk_Klientas_id_Naudotojas == userData.id_Naudotojas).ToList();
+            UserGymRezervation = rezervations.ToList().Select(r=> (r, training.FirstOrDefault(t =>r.fk_Treniruote_treniruotes_nr==t.treniruotes_nr)))
+                .Select(r=>(r.Item1, r.Item2, trainer.FirstOrDefault(t =>r.Item2 != null ? r.Item2.fk_Trenerisid_Treneris == t.id_Treneris : false))) 
+                .Where(r => r.Item1.fk_Klientas_id_Naudotojas == userData.id_Naudotojas && r.Item2.savaites_diena == WeekD).ToList();
         }
     }
 }

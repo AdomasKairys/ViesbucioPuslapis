@@ -10,7 +10,7 @@
     </div>
 }
 <h1>@ViewData["Title"]</h1>
-<p>Jusu rezervacijos: </p>
+<h5>Jusu rezervacijos: </h5>
 <table class="table">
     <thead>
         <tr>
@@ -34,16 +34,16 @@
         else
         {
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="text-center" colspan="3">Jūs nesate užsirezervavę</td>
+                <td style="display: none"></td>
+                <td style="display: none"></td>
             </tr>
         }
     </tbody>
 </table>
 
 <br />
-<p>Galimos rezervacijos: </p>
+<h5>Galimos rezervacijos: </h5>
 <table class="table" id="rezervations">
     <thead>
         <tr>
@@ -62,17 +62,17 @@
                     <td>@sess.StartTime</td>
                     <td>@sess.EndTime</td>
                     <td>@sess.SessId</td>
-                    <td><a class="text-dark" href='@string.Format("./GymReservationView?Start={0}&End={1}&Weekd={2}",sess.StartTime, sess.EndTime, Model.WeekD)'>Rezervuoti</a></td>
+                    <td><a class="btn btn-success" href='@string.Format("./GymReservationView?Start={0}&End={1}&Weekd={2}",sess.StartTime, sess.EndTime, Model.WeekD)'>Rezervuoti</a></td>
                 </tr>
             }
         }
         else
         {
             <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td class="text-center" colspan="4">Šiandien treniruočių nebėra</td>
+                <td style="display: none"></td>
+                <td style="display: none"></td>
+                <td style="display: none"></td>
             </tr>
         }
     </tbody>
