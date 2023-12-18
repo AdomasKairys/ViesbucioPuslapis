@@ -40,7 +40,7 @@ namespace ViesbucioPuslapis.Pages
             int userid = user.id_Naudotojas;
 
             reservations = _db.kambario_rezervacija.Where(res => res.fk_Klientas_id_Naudotojas == userid).ToList();
-            places = _db.stovejimo_vieta.Where(res => res.vietos_uþimtumas == false).ToList();
+            places = _db.stovejimo_vieta.Where(res => res.vietos_užimtumas == false).ToList();
 
         }
 
@@ -62,13 +62,13 @@ namespace ViesbucioPuslapis.Pages
                 if(startDate == DateTime.MinValue || endDate == DateTime.MinValue)
                     return Redirect("/");
 
-                parkingReservation.stovejimo_vietos_pradþia = startDate;
+                parkingReservation.stovejimo_vietos_pradžia = startDate;
                 parkingReservation.stovejimo_vietos_pabaiga = endDate;
                 parkingReservation.fk_Stovejimo_vietavietos_id = SelectedPlaceId;
                 parkingReservation.fk_Kambario_rezervacijaid_Kambario_rezervacija = SelectedReservationId;
-                parking.uþimta_nuo = startDate;
-                parking.uþimta_iki = endDate;
-                parking.vietos_uþimtumas = true;
+                parking.užimta_nuo = startDate;
+                parking.užimta_iki = endDate;
+                parking.vietos_užimtumas = true;
 
                 _db.Add(parkingReservation);
                 _db.Update(parking);
@@ -87,20 +87,20 @@ namespace ViesbucioPuslapis.Pages
                 parkingReservation = new ParkingReservation();
                 ParkingPlace parking = _db.stovejimo_vieta.Where(res => res.vietos_id == SelectedPlaceId).FirstOrDefault();
                 Reservation reservation = _db.kambario_rezervacija.Where(res => res.id_Kambario_rezervacija == SelectedReservationId).FirstOrDefault();
-                ParkingPlace toBeSelected = _db.stovejimo_vieta.Where(res => res.vietos_uþimtumas == false && res.aukstas_id == int.Parse(reservation.fk_Kambarys_kambario_numeris.FirstOrDefault().ToString())).OrderBy(res => res.vietos_id).FirstOrDefault();
+                ParkingPlace toBeSelected = _db.stovejimo_vieta.Where(res => res.vietos_užimtumas == false && res.aukstas_id == int.Parse(reservation.fk_Kambarys_kambario_numeris.FirstOrDefault().ToString())).OrderBy(res => res.vietos_id).FirstOrDefault();
                 Console.WriteLine(int.Parse(reservation.fk_Kambarys_kambario_numeris.FirstOrDefault().ToString()));
                 if(toBeSelected == null)
                 {
-                    toBeSelected = _db.stovejimo_vieta.Where(res => res.vietos_uþimtumas == false).OrderBy(res => res.vietos_id).FirstOrDefault();
+                    toBeSelected = _db.stovejimo_vieta.Where(res => res.vietos_užimtumas == false).OrderBy(res => res.vietos_id).FirstOrDefault();
                 }
 
-                parkingReservation.stovejimo_vietos_pradþia = reservation.pradþia;
+                parkingReservation.stovejimo_vietos_pradžia = reservation.pradžia;
                 parkingReservation.stovejimo_vietos_pabaiga = reservation.pabaiga;
                 parkingReservation.fk_Stovejimo_vietavietos_id = toBeSelected.vietos_id;
                 parkingReservation.fk_Kambario_rezervacijaid_Kambario_rezervacija = SelectedReservationId;
-                parking.uþimta_nuo = reservation.pradþia;
-                parking.uþimta_iki = reservation.pabaiga;
-                parking.vietos_uþimtumas = true;
+                parking.užimta_nuo = reservation.pradžia;
+                parking.užimta_iki = reservation.pabaiga;
+                parking.vietos_užimtumas = true;
 
                 _db.Add(parkingReservation);
                 _db.Update(parking);
@@ -112,25 +112,25 @@ namespace ViesbucioPuslapis.Pages
                     if(i < 100)
                     {
                         parking.aukstas_id = 1;
-                        parking.vietos_uþimtumas = false;
-                        parking.uþimta_iki = DateTime.MinValue;
-                        parking.uþimta_nuo = DateTime.MinValue;
+                        parking.vietos_užimtumas = false;
+                        parking.užimta_iki = DateTime.MinValue;
+                        parking.užimta_nuo = DateTime.MinValue;
                         parking.vietos_id = (i + 100).ToString();
                     }
                     else if(i < 200)
                     {
                         parking.aukstas_id = 2;
-                        parking.vietos_uþimtumas = false;
-                        parking.uþimta_iki = DateTime.MinValue;
-                        parking.uþimta_nuo = DateTime.MinValue;
+                        parking.vietos_užimtumas = false;
+                        parking.užimta_iki = DateTime.MinValue;
+                        parking.užimta_nuo = DateTime.MinValue;
                         parking.vietos_id = (i + 100).ToString();
                     }
                     else
                     {
                         parking.aukstas_id = 3;
-                        parking.vietos_uþimtumas = false;
-                        parking.uþimta_iki = DateTime.MinValue;
-                        parking.uþimta_nuo = DateTime.MinValue;
+                        parking.vietos_užimtumas = false;
+                        parking.užimta_iki = DateTime.MinValue;
+                        parking.užimta_nuo = DateTime.MinValue;
                         parking.vietos_id = (i + 100).ToString();
                     }
                     _db.Add(parking);

@@ -13,9 +13,9 @@ namespace ViesbucioPuslapis.Pages
         public class Specialization
         {
             public double kulturizmas { get; set; }
-            public double legvoji_atletima { get; set; }
-            public double sunkioji_atletika { get; set; }
             public double jegos_trikove { get; set; }
+            public double legvoji_atletika { get; set; }
+            public double sunkioji_atletika { get; set; }
         }
 
 
@@ -87,11 +87,11 @@ namespace ViesbucioPuslapis.Pages
                 vietu_kiekis = t.vietu_kiekis - rezervations.ToList().Where(r =>
                     (r.fk_Treniruote_treniruotes_nr == t.treniruotes_nr) && (myCal.GetWeekOfYear(r.rezervacijos_laikas, myCWR, myFirstDOW).CompareTo(myCal.GetWeekOfYear(DateTime.Now, myCWR, myFirstDOW)) == 0)
                     ).Count(),
-            }).Where(t => t.treniruotes_pradzia > TimeOnly.FromDateTime(DateTime.Now)).ToList();
+            }).Where(t => t.treniruotes_pradzia > TimeOnly.FromDateTime(DateTime.Now) || (t.savaites_diena == 7 ? 0 : t.savaites_diena) > myCal.GetWeekOfYear(DateTime.Now, myCWR, myFirstDOW)).ToList();
 
             var trainers =  _db.treneris.ToList();
 
-            TrainingSess = training.Where(t=> t.treniruotes_pradzia == startTime && t.treniruotes_pabaiga==endTime && t.savaites_diena== WeekDay).Select(t=>(t, trainers.First(tr=>t.fk_Trenerisid_Treneris==tr.id_Treneris))).ToList();
+            TrainingSess = training.Where(t=> t.treniruotes_pradzia == startTime && t.treniruotes_pabaiga == endTime && t.savaites_diena == WeekDay).Select(t=>(t, trainers.First(tr=>t.fk_Trenerisid_Treneris==tr.id_Treneris))).ToList();
         }
         public IActionResult OnPostAddRezervation(int weekD)
         {

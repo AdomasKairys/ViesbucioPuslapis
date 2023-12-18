@@ -28,9 +28,9 @@ namespace ViesbucioPuslapis.Pages.RoomSystem
             //int userid = 2;
             ParkingReservation reservation = _db.stovejimo_vietos_rezervacija.Where(res => res.id_Stovejimo_vietos_rezervacija == resid).FirstOrDefault();
             ParkingPlace place = _db.stovejimo_vieta.Where(res => res.vietos_id == reservation.fk_Stovejimo_vietavietos_id).FirstOrDefault();
-            place.uþimta_nuo = DateTime.MinValue;
-            place.uþimta_iki = DateTime.MinValue;
-            place.vietos_uþimtumas = false;
+            place.užimta_nuo = DateTime.MinValue;
+            place.užimta_iki = DateTime.MinValue;
+            place.vietos_užimtumas = false;
             _db.Remove(reservation);
             _db.Update(place);
             _db.SaveChanges();

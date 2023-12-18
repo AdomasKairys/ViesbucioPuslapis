@@ -17,6 +17,8 @@
             <th>Laikas nuo</th>
             <th>Laikas iki</th>
             <th>Treneris</th>
+            <th></th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -24,10 +26,22 @@
         {
             foreach (var sess in Model.UserGymRezervation)
             {
+                string disabled = ((sess.TrainingSession.treniruotes_pradzia - TimeOnly.FromDateTime(DateTime.Now) < TimeSpan.Parse("02:00:00")) ? "disabled" : "");
+
                 <tr>
                     <td>@sess.TrainingSession.treniruotes_pradzia</td>
                     <td>@sess.TrainingSession.treniruotes_pabaiga</td>
                     <td>@sess.Trainer.trenerio_vardas @sess.Trainer.trenerio_pavarde</td>
+                    <td>
+                        <a class="btn btn-primary @disabled" href="/GymSystem/GymEditRezervationView?id=@sess.Rezervation.id_Sporto_sales_rezervacija" aria-disabled="@(disabled == ""? "false":"true")">Redaguoti</a>
+                    </td>
+                    <td>
+                        <form id="rezerveTraining" method="post" role="form">
+                            <input type="hidden" name="id" value='@sess.Rezervation.id_Sporto_sales_rezervacija' /> 
+                            <input type="hidden" asp-for="WeekD" /> 
+                            <input class="btn btn-danger" type="submit" value="Šalinti" @disabled />
+                        </form>
+                    </td>
                 </tr>
             }
         }

@@ -56,10 +56,22 @@
       </div>
       <form id="rezerveTraining" method="post" role="form">
       <div class="modal-body">
-          <input type="hidden" value="0.5" asp-for="UserSpec.kulturizmas" />
-          <input type="hidden" value="0.5" asp-for="UserSpec.legvoji_atletima" />
-          <input type="hidden" value="0.5" asp-for="UserSpec.sunkioji_atletika" />
-          <input type="hidden" value="0.5" asp-for="UserSpec.jegos_trikove" />
+          <div class="slidecontainer">
+            <label for="kult" class="form-label">Kulturizmas</label>
+            <input type="range" min="0" max="1" step="0.01" value="0.5" id="kult" class="form-range" asp-for="UserSpec.kulturizmas">
+          </div>
+          <div class="slidecontainer">
+            <label for="leng-atl" class="form-label">Lengvoji atletika</label>
+            <input type="range" min="0" max="1" step="0.01" value="0.5" id="leng-atl" class="form-range" asp-for="UserSpec.legvoji_atletika">
+          </div>
+          <div class="slidecontainer">
+            <label for="sunk-atl" class="form-label">Sunkioji atletika</label>
+            <input type="range" min="0" max="1" step="0.01" value="0.5" id="sunk-atl" class="form-range" asp-for="UserSpec.sunkioji_atletika">
+          </div>
+          <div class="slidecontainer">
+            <label for="jeg-tri" class="form-label">Jegos trikovė</label>
+            <input type="range" min="0" max="1" step="0.01" value="0.5" id="jeg-tri" class="form-range" asp-for="UserSpec.jegos_trikove">
+          </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>

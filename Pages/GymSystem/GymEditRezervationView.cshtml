@@ -3,5 +3,82 @@
 @{
     ViewData["Title"] = "Treniruočių rezervacijos redagavimas";
 }
-<a class="text-dark" asp-area="" asp-page="./GymTimeList">Grįžti atgal</a>
 
+<h5>Keisti rezervacija</h5>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Trenerio vardas, pavardė</th>
+            <th>Laikas nuo</th>
+            <th>Laikas iki</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.UserGymRezervation != null && Model.UserTrainer != null && Model.UserSession != null)
+        {
+            <tr>
+                <td>@Model.UserTrainer.trenerio_vardas @Model.UserTrainer.trenerio_pavarde</td>
+                <td>@Model.UserSession.treniruotes_pradzia</td>
+                <td>@Model.UserSession.treniruotes_pabaiga</td>
+            </tr>
+            
+        }
+        else
+        {
+            <tr>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<h5>Pasirinkimai</h5>
+<table class="table" id="rezervations">
+    <thead>
+        <tr>
+            <th>Trenerio vardas, pavardė</th>
+            <th>Laikas nuo</th>
+            <th>Laikas iki</th>
+            <th>Vietu kiekis</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model.TrainingSess != null && Model.TrainingSess.Count > 0)
+        {
+            foreach (var sess in Model.TrainingSess)
+            {
+                <tr>
+                    <td>@sess.Item2.trenerio_vardas @sess.Item2.trenerio_pavarde</td>
+                    <td>@sess.Item1.treniruotes_pradzia</td>
+                    <td>@sess.Item1.treniruotes_pabaiga</td>
+                    <td>@sess.Item1.vietu_kiekis</td>
+                    <td>
+                        <form id="rezerveTraining" method="post" role="form">
+                            <input type="hidden" name="id" value="@sess.Item1.treniruotes_nr" />
+                            <input class="btn btn-success" type="submit" value="Rezervuoti"/>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        const table = new DataTable('#rezervations', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/lt.json',
+            },
+            columnDefs: [
+                { orderable: false, targets: -1 , searchable: false }
+            ]
+        });
+    </script>
+}
